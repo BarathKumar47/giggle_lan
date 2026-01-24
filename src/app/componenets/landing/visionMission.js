@@ -60,11 +60,10 @@ export default function VisionMission() {
                 <Typography
                     sx={{
                         fontFamily: "var(--font-roboto)",
-                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
+                        fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                         fontWeight: 500,
                         color: "#ffffff",
                         lineHeight: 1.1,
-
                         marginBottom: "0px",
                     }}
                 >
@@ -74,13 +73,13 @@ export default function VisionMission() {
                 <Typography
                     sx={{
                         fontFamily: "var(--font-playfair)",
-                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
+                        fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                         fontWeight: 400,
                         fontStyle: "italic",
                         color: "#ffffff",
                         lineHeight: 1.1,
                         textAlign: "center",
-                        marginBottom: { xs: "auto", md: "9rem" },
+                        marginBottom: { xs: "2rem", md: "9rem" },
                     }}
                 >
                     Stars
@@ -115,59 +114,63 @@ export default function VisionMission() {
                         marginBottom: "50px",
                         lineHeight: 1.2,
                         border: "1px solid #ffffff",
-                        padding: "5px 20px",
+                        padding: { xs: "5px 12px", md: "5px 20px" },
                         position: "relative",
-                        display: "inline-block"
+                        display: { xs: "flex", md: "inline-block" },
+                        justifyContent: "center",
+                        alignItems: "center",
+                        maxWidth: { xs: "fit-content", md: "none" },
+                        margin: { xs: "0 auto 50px auto", md: "0 0 50px 0" }
                     }}>
                         {/* Corner squares */}
                         <Box sx={{
                             position: "absolute",
-                            top: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            top: { xs: "-5px", md: "-10px" },
+                            left: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            top: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            top: { xs: "-5px", md: "-10px" },
+                            right: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            top: "-10px",
+                            top: { xs: "-5px", md: "-10px" },
                             left: "50%",
                             transform: "translateX(-50%)",
-                            width: "20px",
-                            height: "20px",
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            bottom: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            bottom: { xs: "-5px", md: "-10px" },
+                            left: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            bottom: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            bottom: { xs: "-5px", md: "-10px" },
+                            right: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            bottom: "-10px",
+                            bottom: { xs: "-5px", md: "-10px" },
                             left: "50%",
                             transform: "translateX(-50%)",
-                            width: "20px",
-                            height: "20px",
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Typography
@@ -175,7 +178,7 @@ export default function VisionMission() {
                             sx={{
                                 fontFamily: "var(--font-playfair)",
                                 fontStyle: "italic",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
+                                fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
                                 fontWeight: 400,
                                 color: "#ffffff",
                             }}
@@ -186,10 +189,10 @@ export default function VisionMission() {
                             component="span"
                             sx={{
                                 fontFamily: "var(--font-helvetica)",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
+                                fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
                                 fontWeight: 500,
                                 color: "#ffffff",
-                                marginLeft: "30px",
+                                marginLeft: { xs: "15px", md: "30px" },
                             }}
                         >
                             Vision
@@ -199,13 +202,13 @@ export default function VisionMission() {
                     <Typography
                         sx={{
                             fontFamily: "var(--font-inter)",
-                            fontSize: { xs: "0.9rem", md: "1.5rem" },
+                            fontSize: { xs: "0.85rem", md: "1.5rem" },
                             fontWeight: 300,
                             color: "#E7E7E7",
-                            lineHeight: '36px',
-                            letterSpacing: '0%',
-                            // maxWidth: { xs: "100%", md: "500px" },   
-                            width: { xs: "100%", md: "650px" }
+                            lineHeight: { xs: "1.6", md: "36px" },
+                            letterSpacing: "0%",
+                            width: { xs: "100%", md: "650px" },
+                            textAlign: { xs: "left", md: "left" },
                         }}
                     >
                         <span style={{ fontWeight: 700 }}>Aquila, The Hunter</span>: <span>A constellation formed in the shape of an eagle that represents man's strive for greatness, excellence and prowess.</span><br />
@@ -217,9 +220,9 @@ export default function VisionMission() {
 
                 {/* Lightbulb Image - Right Side */}
                 <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 0, x: 500, rotate: 45 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                    transition={{ duration: 1 }}
                     viewport={{ once: true }}
                     sx={{
                         flex: { xs: "1", md: "1" },
@@ -234,8 +237,8 @@ export default function VisionMission() {
                         src="/Bulp.png"
                         alt="Lightbulb"
                         sx={{
-                            width: { xs: "200px", md: "300px", lg: "auto" },
-                            height: { xs: "auto", md: "auto", lg: "auto" },
+                            width: { xs: "150px", sm: "180px", md: "300px", lg: "auto" },
+                            height: "auto",
                             maxWidth: "100%",
                             filter: "drop-shadow(0px 0px 30px rgba(255, 223, 0, 0.3))",
                         }}
@@ -249,7 +252,7 @@ export default function VisionMission() {
                     // maxWidth: "1200px",
                     width: "100%",
                     display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
+                    flexDirection: { xs: "column-reverse", md: "row" },
                     alignItems: "center",
                     gap: { xs: "40px", md: "60px" },
                     // marginTop: { xs: "60px", md: "100px" },
@@ -259,9 +262,12 @@ export default function VisionMission() {
             >
                 {/* Target Image - Left Side */}
                 <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                    initial={{ opacity: 0, x: -150, rotate: -45 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                    transition={{ 
+                        duration: 1,
+                        ease: "easeOut"
+                    }}
                     viewport={{ once: true }}
                     sx={{
                         flex: { xs: "1", md: "1" },
@@ -276,10 +282,10 @@ export default function VisionMission() {
                         src="/Target.png"
                         alt="Target"
                         sx={{
-                            width: { xs: "200px", md: "300px", lg: "600px" },
+                            width: { xs: "150px", sm: "180px", md: "300px", lg: "600px" },
                             height: "auto",
                             maxWidth: "100%",
-                            marginBottom: "70px",
+                            marginBottom: { xs: "40px", md: "70px" },
                             filter: "drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.2))",
                         }}
                     />
@@ -298,62 +304,65 @@ export default function VisionMission() {
                     }}
                 >
                     <Box sx={{
-                        // marginRight:"50px",
-                        marginBottom: "50px",
+                        marginBottom: { xs: "30px", md: "50px" },
                         border: "1px solid #ffffff",
-                        padding: "5px 20px",
+                        padding: { xs: "5px 12px", md: "5px 20px" },
                         position: "relative",
-                        display: "inline-block",
-                        transform: "translateY(-70px)"
+                        display: { xs: "flex", md: "inline-block" },
+                        justifyContent: "center",
+                        alignItems: "center",
+                        transform: { xs: "translateY(-40px)", md: "translateY(-70px)" },
+                        maxWidth: { xs: "fit-content", md: "none" },
+                        margin: { xs: "0 auto 30px auto", md: "0 0 50px 0" }
                     }}>
                         {/* Corner squares */}
                         <Box sx={{
                             position: "absolute",
-                            top: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            top: { xs: "-5px", md: "-10px" },
+                            left: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            top: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            top: { xs: "-5px", md: "-10px" },
+                            right: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            top: "-10px",
+                            top: { xs: "-5px", md: "-10px" },
                             left: "50%",
                             transform: "translateX(-50%)",
-                            width: "20px",
-                            height: "20px",
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            bottom: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            bottom: { xs: "-5px", md: "-10px" },
+                            left: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            bottom: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
+                            bottom: { xs: "-5px", md: "-10px" },
+                            right: { xs: "-5px", md: "-10px" },
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Box sx={{
                             position: "absolute",
-                            bottom: "-10px",
+                            bottom: { xs: "-5px", md: "-10px" },
                             left: "48.5%",
-                            width: "20px",
-                            height: "20px",
+                            width: { xs: "10px", md: "20px" },
+                            height: { xs: "10px", md: "20px" },
                             backgroundColor: "#ffffff"
                         }} />
                         <Typography
@@ -361,7 +370,7 @@ export default function VisionMission() {
                             sx={{
                                 fontFamily: "var(--font-playfair)",
                                 fontStyle: "italic",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
+                                fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
                                 fontWeight: 400,
                                 color: "#ffffff",
                             }}
@@ -372,10 +381,10 @@ export default function VisionMission() {
                             component="span"
                             sx={{
                                 fontFamily: "var(--font-helvetica)",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
+                                fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
                                 fontWeight: 500,
                                 color: "#ffffff",
-                                marginLeft: "30px",
+                                marginLeft: { xs: "15px", md: "30px" },
                             }}
                         >
                             Mission
@@ -385,15 +394,15 @@ export default function VisionMission() {
                     <Typography
                         sx={{
                             fontFamily: "var(--font-inter)",
-                            fontSize: { xs: "0.9rem", md: "1.5rem" },
+                            fontSize: { xs: "0.85rem", md: "1.5rem" },
                             fontWeight: 300,
                             color: "#E7E7E7",
-                            lineHeight: '36px',
-                            letterSpacing: '0%',
-                            textAlign: "right",
+                            lineHeight: { xs: "1.6", md: "36px" },
+                            letterSpacing: "0%",
+                            textAlign: { xs: "left", md: "right" },
                             width: { xs: "100%", md: "600px" },
-                            marginLeft:'-20px',
-                            marginTop: "-70px"
+                            marginLeft: { xs: "0px", md: "-20px" },
+                            marginTop: { xs: "-40px", md: "-70px" }
                         }}
                     >
                         Our mission is <span style={{ fontWeight: 700 }}>to build a task-first gig marketplace</span> that replaces tiresome hiring, long interviews, and sudden layoffs with something smarter: <span style={{ fontWeight: 700 }}>real work, real outcomes, and real accountability.</span>

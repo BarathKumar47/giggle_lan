@@ -126,6 +126,22 @@ export default function ContactSection() {
                     </Box>
                 </motion.div>
 
+                {/* Blur Effect Element */}
+                <Box
+                    sx={{
+                        position: "absolute",
+                        width: "300px",
+                        height: "300px",
+                        // top: "302px",
+                        left: "570px",
+                        background: "#B053FF",
+                        filter: "blur(250px)",
+                        zIndex: 0,
+                        pointerEvents: "none",
+                        display: { xs: "none", sm: "none", md: "block" },
+                    }}
+                />
+
                 {/* Right Side - Contact Form */}
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
@@ -143,13 +159,14 @@ export default function ContactSection() {
                             backdropFilter: "blur(10px)",
                             border: "1px solid rgba(255, 255, 255, 0.1)",
                             borderRadius: "18px",
-                            padding: "40px",
+                            padding: { xs: "24px", sm: "32px", md: "40px" },
                             boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
-                            width: "595px",
+                            width: { xs: "100%", sm: "100%", md: "595px" },
+                            maxWidth: "100%",
                         }}
                     >
                         
-                        <Box sx={{ display: "flex", gap: "16px", marginBottom: "20px" }}>
+                        <Box sx={{ display: "flex", gap: "16px", marginBottom: "20px", flexDirection: { xs: "column", sm: "row" } }}>
                             <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                                 <label
                                     htmlFor="first-name"
@@ -339,10 +356,10 @@ export default function ContactSection() {
                             sx={{
                                 color: "#4C5C6E",
                                 fontSize: "10px",
-                                position: "absolute",
-                                bottom: "20px",
-                                left: "36rem",
                                 fontFamily: "var(--font-inter)",
+                                position: { xs: "none", md: "absolute" },
+                                bottom: { xs: "none", md: "1rem" },
+                                left: { xs: "none", md: "36rem" },
                             }}
                         >
                             © 2024 Giggle. All rights reserved.
@@ -353,8 +370,10 @@ export default function ContactSection() {
                     <Box
                         sx={{
                             display: "flex",
-                            gap: "32px",
+                            gap: { xs: "16px", md: "32px" },
                             marginTop: "-1rem",
+                            flexWrap: { xs: "wrap", md: "nowrap" },
+                            justifyContent: { xs: "center", md: "flex-start" },
                         }}
                     >
                         <Typography
@@ -413,6 +432,7 @@ export default function ContactSection() {
                             display: "flex",
                             gap: "16px",
                             marginTop: "-0.5rem",
+                            justifyContent: { xs: "center", md: "flex-start" },
                         }}
                     >
                         <Box
