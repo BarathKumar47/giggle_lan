@@ -9,7 +9,6 @@
   --font-mono: 'Courier New', monospace;
 
 
-
   /* Light mode colors */
   --background: #ffffff;
   --foreground: #171717;
@@ -66,4 +65,52 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* Corner squares for bordered elements */
+.border-corners::before,
+.border-corners::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+}
+
+.border-corners::before {
+  top: -4px;
+  left: -4px;
+}
+
+.border-corners::after {
+  bottom: -4px;
+  right: -4px;
+}
+
+.border-corners .corner-top-right::before,
+.border-corners .corner-top-right::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+}
+
+.border-corners .corner-top-right::before {
+  top: -4px;
+  right: -4px;
+}
+
+.border-corners .corner-bottom-left::before,
+.border-corners .corner-bottom-left::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+}
+
+.border-corners .corner-bottom-left::before {
+  bottom: -4px;
+  left: -4px;
 }
