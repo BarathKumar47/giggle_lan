@@ -392,7 +392,7 @@ export default function VisionMission() {
                             letterSpacing: '0%',
                             textAlign: "right",
                             width: { xs: "100%", md: "600px" },
-                            marginLeft:'-20px',
+                            marginLeft: '-20px',
                             marginTop: "-70px"
                         }}
                     >

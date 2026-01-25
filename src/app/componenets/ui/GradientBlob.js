@@ -1,31 +1,74 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useEffect, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
-/**
- * GradientBlob Component
- * Ported from Framer module for local use.
- */
-export default function GradientBlob({
-    colors = ["#ff0d00ff", "#2f90ffff", "#FF2E97", "#00FFA3", "#FFD600"],
-    blobCount = 5,
-    animationSpeed = 1,
-    blur = 40,
-    opacity = 0.7,
-    scale = 1,
-}) {
-    const filterId = useMemo(() => `goo-${Math.random().toString(36).substr(2, 9)}`, []);
+export const BackgroundGradientAnimation = ({
+    gradientBackgroundStart = "rgb(0, 0, 0)", // Black
+    gradientBackgroundEnd = "rgb(0, 0, 0)",   // Black
+    firstColor = "18, 113, 255",
+    secondColor = "221, 74, 255",
+    thirdColor = "100, 220, 255",
+    fourthColor = "200, 50, 50",
+    fifthColor = "180, 180, 50",
+    pointerColor = "140, 100, 255",
+    size = "80%",
+    blendingValue = "hard-light",
+    children,
+    interactive = true,
+}) => {
+    const interactiveRef = useRef(null);
+    const [curX, setCurX] = useState(0);
+    const [curY, setCurY] = useState(0);
+    const [tgX, setTgX] = useState(0);
+    const [tgY, setTgY] = useState(0);
+    const [isSafari, setIsSafari] = useState(false);
 
-    const blobs = useMemo(() => {
-        return Array.from({ length: blobCount }, (_, i) => ({
-            id: i,
-            color: colors[i % colors.length],
-            initialX: Math.random() * 100,
-            initialY: Math.random() * 100,
-            size: 100 + Math.random() * 150, // Slightly larger base than Framer for hero visibility
-        }));
-    }, [blobCount, colors]);
+    useEffect(() => {
+        setIsSafari(/^((?!chrome|android).)*safari/i.test(navigator.userAgent));
+
+        document.body.style.setProperty("--gradient-background-start", gradientBackgroundStart);
+        document.body.style.setProperty("--gradient-background-end", gradientBackgroundEnd);
+        document.body.style.setProperty("--first-color", firstColor);
+        document.body.style.setProperty("--second-color", secondColor);
+        document.body.style.setProperty("--third-color", thirdColor);
+        document.body.style.setProperty("--fourth-color", fourthColor);
+        document.body.style.setProperty("--fifth-color", fifthColor);
+        document.body.style.setProperty("--pointer-color", pointerColor);
+        document.body.style.setProperty("--size", size);
+        document.body.style.setProperty("--blending-value", blendingValue);
+    }, []);
+
+    useEffect(() => {
+        function move() {
+            if (!interactiveRef.current) {
+                return;
+            }
+            setCurX(curX + (tgX - curX) / 20);
+            setCurY(curY + (tgY - curY) / 20);
+            interactiveRef.current.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
+        }
+        const animationId = requestAnimationFrame(move);
+        return () => cancelAnimationFrame(animationId);
+    }, [curX, curY, tgX, tgY]);
+
+    const handleMouseMove = (event) => {
+        if (interactiveRef.current) {
+            const rect = interactiveRef.current.getBoundingClientRect();
+            setTgX(event.clientX - rect.left);
+            setTgY(event.clientY - rect.top);
+        }
+    };
+
+    const commonStyle = {
+        position: 'absolute',
+        mixBlendMode: 'var(--blending-value)',
+        width: 'var(--size)',
+        height: 'var(--size)',
+        top: 'calc(50% - var(--size) / 2)',
+        left: 'calc(50% - var(--size) / 2)',
+        opacity: 0.8,
+    };
 
     return (
         <div
@@ -36,116 +79,142 @@ export default function GradientBlob({
                 top: 0,
                 left: 0,
                 overflow: "hidden",
-                background: "transparent",
-                zIndex: 0,
-                pointerEvents: "none",
+                background: `linear-gradient(40deg, ${gradientBackgroundStart}, ${gradientBackgroundEnd})`,
             }}
         >
-            <svg width="0" height="0" style={{ position: "absolute" }}>
+            <svg style={{ display: 'none' }}>
                 <defs>
-                    <filter id={filterId}>
-                        <feGaussianBlur
-                            in="SourceGraphic"
-                            stdDeviation={blur}
-                            result="blur"
-                        />
+                    <filter id="blurMe">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
                         <feColorMatrix
                             in="blur"
                             mode="matrix"
-                            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8"
                             result="goo"
                         />
-                        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                        <feBlend in="SourceGraphic" in2="goo" />
                     </filter>
                 </defs>
             </svg>
+
+            <div style={{ position: 'relative', width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }}>{children}</div>
+
             <div
                 style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: `url(#${filterId})`,
-                    position: "relative",
+                    width: '100%',
+                    height: '100%',
+                    filter: isSafari ? 'blur(80px)' : 'url(#blurMe) blur(40px)',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
                 }}
             >
-                {blobs.map((blob) => (
-                    <Blob
-                        key={blob.id}
-                        color={blob.color}
-                        initialX={blob.initialX}
-                        initialY={blob.initialY}
-                        size={blob.size}
-                        speed={animationSpeed}
-                        opacity={opacity}
-                        scale={scale}
+                {/* First Blob: moveVertical */}
+                <motion.div
+                    animate={{
+                        y: ["-50%", "50%", "-50%"],
+                    }}
+                    transition={{
+                        duration: 30,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                    }}
+                    style={{
+                        ...commonStyle,
+                        background: `radial-gradient(circle at center, rgba(${firstColor}, 0.8) 0, rgba(${firstColor}, 0) 50%) no-repeat`,
+                        transformOrigin: 'center center',
+                    }}
+                />
+
+                {/* Second Blob: moveInCircle (Reverse) */}
+                <motion.div
+                    animate={{
+                        rotate: [360, 0],
+                    }}
+                    transition={{
+                        duration: 20,
+                        ease: "linear",
+                        repeat: Infinity,
+                    }}
+                    style={{
+                        ...commonStyle,
+                        background: `radial-gradient(circle at center, rgba(${secondColor}, 0.8) 0, rgba(${secondColor}, 0) 50%) no-repeat`,
+                        transformOrigin: 'calc(50% - 400px)',
+                    }}
+                />
+
+                {/* Third Blob: moveInCircle */}
+                <motion.div
+                    animate={{
+                        rotate: [0, 360],
+                    }}
+                    transition={{
+                        duration: 40,
+                        ease: "linear",
+                        repeat: Infinity,
+                    }}
+                    style={{
+                        ...commonStyle,
+                        background: `radial-gradient(circle at center, rgba(${thirdColor}, 0.8) 0, rgba(${thirdColor}, 0) 50%) no-repeat`,
+                        transformOrigin: 'calc(50% + 400px)',
+                    }}
+                />
+
+                {/* Fourth Blob: moveHorizontal */}
+                <motion.div
+                    animate={{
+                        x: ["-50%", "50%", "-50%"],
+                        y: ["-10%", "10%", "-10%"],
+                    }}
+                    transition={{
+                        duration: 40,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                    }}
+                    style={{
+                        ...commonStyle,
+                        background: `radial-gradient(circle at center, rgba(${fourthColor}, 0.8) 0, rgba(${fourthColor}, 0) 50%) no-repeat`,
+                        transformOrigin: 'calc(50% - 200px)',
+                        opacity: 0.7,
+                    }}
+                />
+
+                {/* Fifth Blob: moveInCircle */}
+                <motion.div
+                    animate={{
+                        rotate: [0, 360],
+                    }}
+                    transition={{
+                        duration: 20,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                    }}
+                    style={{
+                        ...commonStyle,
+                        background: `radial-gradient(circle at center, rgba(${fifthColor}, 0.8) 0, rgba(${fifthColor}, 0) 50%) no-repeat`,
+                        transformOrigin: 'calc(50% - 800px) calc(50% + 800px)',
+                    }}
+                />
+
+                {interactive && (
+                    <div
+                        ref={interactiveRef}
+                        onMouseMove={handleMouseMove}
+                        style={{
+                            position: 'absolute',
+                            background: `radial-gradient(circle at center, rgba(${pointerColor}, 0.8) 0, rgba(${pointerColor}, 0) 50%) no-repeat`,
+                            mixBlendMode: blendingValue,
+                            width: '100%',
+                            height: '100%',
+                            top: '-50%',
+                            left: '-50%',
+                            opacity: 0.7,
+                        }}
                     />
-                ))}
+                )}
             </div>
         </div>
     );
-}
+};
 
-function Blob({ color, initialX, initialY, size, speed, opacity, scale }) {
-    const x = useMotionValue(initialX);
-    const y = useMotionValue(initialY);
-    const rotate = useMotionValue(0);
-    const scaleX = useMotionValue(1);
-    const scaleY = useMotionValue(1);
-
-    useEffect(() => {
-        const duration = 20 / speed;
-
-        const controls = [
-            animate(x, [initialX, Math.random() * 100, initialX], {
-                duration: duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-            }),
-            animate(y, [initialY, Math.random() * 100, initialY], {
-                duration: duration * 1.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-            }),
-            animate(rotate, [0, 360], {
-                duration: duration * 1.5,
-                repeat: Infinity,
-                ease: "linear",
-            }),
-            animate(scaleX, [1, 1.3, 0.8, 1], {
-                duration: duration * 0.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-            }),
-            animate(scaleY, [1, 0.8, 1.3, 1], {
-                duration: duration * 0.9,
-                repeat: Infinity,
-                ease: "easeInOut",
-            }),
-        ];
-
-        return () => controls.forEach((control) => control.stop());
-    }, [x, y, rotate, scaleX, scaleY, initialX, initialY, speed]);
-
-    const left = useTransform(x, (value) => `${value}%`);
-    const top = useTransform(y, (value) => `${value}%`);
-
-    return (
-        <motion.div
-            style={{
-                position: "absolute",
-                left,
-                top,
-                width: size * scale,
-                height: size * scale,
-                borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%",
-                background: color,
-                opacity: opacity,
-                rotate,
-                scaleX,
-                scaleY,
-                x: "-50%",
-                y: "-50%",
-                willChange: "transform",
-            }}
-        />
-    );
-}
+export default BackgroundGradientAnimation;

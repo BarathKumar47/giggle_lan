@@ -81,7 +81,7 @@ export default function WorkRules() {
                 descriptionColor: "#555555"
             }
         },
-        
+
     ];
 
     return (
@@ -103,6 +103,35 @@ export default function WorkRules() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
             >
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "12px 24px",
+                                        background: "rgba(255, 255, 255, 0.1)",
+                                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                                        borderRadius: "50px",
+                                        marginBottom: "12px",
+                                        width: "fit-content",
+                                        margin: "0 auto 12px auto",
+                                    }}
+                                >
+                                    <Typography
+                                        sx={{
+                                            fontFamily: "var(--font-inter)",
+                                            fontSize: { xs: "0.75rem", md: "10px" },
+                                            fontWeight: 600,
+                                            color: "#E7E7E7",
+                                            letterSpacing: "2px",
+                                            textTransform: "uppercase",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                       The platform 
+                                    </Typography>
+                </Box>
+
                 <Typography
                     variant="h2"
                     sx={{
@@ -158,96 +187,135 @@ export default function WorkRules() {
                     width: "100%",
                 }}
             >
-                {features.map((feature, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                        viewport={{ once: true }}
-                        style={{ gridArea: feature.gridArea }}
-                    >
-                        <Box
-                            sx={{
-                                backdropFilter: "blur(20px)",
-                                padding: { xs: "28px", md: "32px" },
-                                width: feature.customWidth,
-                                height: feature.customHeight,
-                                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                                display: "flex",
-                                flexDirection: "column",
-                                position: "relative",
-                                overflow: "hidden",
-                                background: feature.customStyle.background,
-                                border: feature.customStyle.border,
-                                borderRadius: feature.customStyle.borderRadius,
-                                boxShadow: feature.customStyle.boxShadow,
-                                "&::before": {
-                                    content: '""',
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    height: "1px",
-                                    background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)",
-                                },
-                                "&:hover": {
-                                    background: feature.customStyle.background.replace("0.1", "0.15").replace("0.08", "0.12"),
-                                    border: feature.customStyle.border.replace("0.3", "0.4").replace("0.12", "0.2"),
-                                    boxShadow: feature.customStyle.boxShadow.replace("0.2", "0.3").replace("0.3", "0.4"),
-                                    transform: "translateY(-4px) scale(1.02)",
-                                },
+                {features.map((feature, index) => {
+                    // Extract color for the gradient (default to white if not specific)
+                    const gradientColors = [
+                        "#ffffff", // Unified Workspace
+                        "#3b82f6", // Escrow (Blue-ish)
+                        "#fb923c", // Instant Flow (Orange)
+                        "#22c55e"  // Advanced Security (Green)
+                    ];
+                    const activeColor = gradientColors[index % gradientColors.length];
+
+                    // Determine animation direction based on index/layout
+                    let initialAnim = { opacity: 0, y: 30 };
+                    let animateTarget = { opacity: 1, x: 0, y: 0 };
+
+                    if (index === 0) {
+                        // Left Card -> Comes from Left (Standard)
+                        initialAnim = { opacity: 0, x: -100, y: 0 };
+                        animateTarget = { opacity: 1, x: 0, y: 0 };
+                    } else if (index === 1 || index === 2) {
+                        // Top cards -> Come from high up, overshoot down hard
+                        initialAnim = { opacity: 0, y: -200, x: 0 };
+                        animateTarget = {
+                            opacity: 1,
+                            x: 0,
+                            y: 0
+                        };
+                    } else if (index === 3) {
+                        // Bottom card -> Comes from deep bottom, overshoot up hard
+                        initialAnim = { opacity: 0, y: 200, x: 0 };
+                        animateTarget = {
+                            opacity: 1,
+                            x: 0,
+                            y: 0
+                        };
+                    }
+
+                    return (
+                        <motion.div
+                            key={index}
+                            initial={initialAnim}
+                            whileInView={animateTarget}
+                            transition={{
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 20,
+                                mass: 1.2, // Heavier feel
+                                delay: 0
                             }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            style={{ gridArea: feature.gridArea }}
                         >
-                            {/* Icon Container */}
                             <Box
                                 sx={{
-                                    marginBottom: "24px",
+                                    backdropFilter: "blur(20px)",
+                                    padding: { xs: "28px", md: "32px" },
+                                    width: feature.customWidth,
+                                    height: feature.customHeight,
+                                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                                     display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    width: { xs: "72px", md: "50px" },
-                                    height: { xs: "72px", md: "50px" },
-                                    background: feature.customStyle.iconBackground,
-                                    borderRadius: { xs: "18px", md: "5px" },
-                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                                    flexDirection: "column",
+                                    position: "relative",
+                                    overflow: "hidden",
+                                    background: feature.customStyle.background,
+                                    // border: feature.customStyle.border, // Removed static border for animated one
+                                    borderRadius: feature.customStyle.borderRadius,
+                                    boxShadow: feature.customStyle.boxShadow,
+                                    "&:hover": {
+                                        background: feature.customStyle.background.replace("0.1", "0.15").replace("0.08", "0.12"),
+                                        boxShadow: feature.customStyle.boxShadow.replace("0.2", "0.3").replace("0.3", "0.4"),
+                                        transform: "translateY(-4px) scale(1.02)",
+                                    },
                                 }}
                             >
-                                {React.cloneElement(feature.icon, { 
-                                    sx: { fontSize: feature.icon.props.sx.fontSize, color: feature.customStyle.iconColor } 
-                                })}
+                                {/* Icon Container */}
+                                <Box
+                                    sx={{
+                                        marginBottom: "24px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: { xs: "72px", md: "50px" },
+                                        height: { xs: "72px", md: "50px" },
+                                        background: feature.customStyle.iconBackground,
+                                        borderRadius: { xs: "18px", md: "5px" },
+                                        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                                        position: "relative",
+                                        zIndex: 2,
+                                    }}
+                                >
+                                    {React.cloneElement(feature.icon, {
+                                        sx: { fontSize: feature.icon.props.sx.fontSize, color: feature.customStyle.iconColor }
+                                    })}
+                                </Box>
+
+                                {/* Title */}
+                                <Typography
+                                    sx={{
+                                        fontFamily: "var(--font-inter)",
+                                        fontSize: { xs: "20px", md: "32px" },
+                                        fontWeight: 500,
+                                        color: feature.customStyle.titleColor || "#ffffff",
+                                        marginBottom: "16px",
+                                        lineHeight: '52px',
+                                        position: "relative",
+                                        zIndex: 2,
+                                    }}
+                                >
+                                    {feature.title}
+                                </Typography>
+
+                                {/* Description */}
+                                <Typography
+                                    sx={{
+                                        fontFamily: "var(--font-inter)",
+                                        fontSize: { xs: "14px", md: "20px" },
+                                        fontWeight: 400,
+                                        color: feature.customStyle.descriptionColor || "rgba(255, 255, 255, 0.7)",
+                                        lineHeight: '32px',
+                                        flex: 1,
+                                        position: "relative",
+                                        zIndex: 2,
+                                    }}
+                                >
+                                    {feature.description}
+                                </Typography>
                             </Box>
-
-                            {/* Title */}
-                            <Typography
-                                sx={{
-                                    fontFamily: "var(--font-inter)",
-                                    fontSize: { xs: "20px", md: "32px" },
-                                    fontWeight: 500,
-                                    color: feature.customStyle.titleColor || "#ffffff",
-                                    marginBottom: "16px",
-                                    lineHeight: '52px',
-                                }}
-                            >
-                                {feature.title}
-                            </Typography>
-
-                            {/* Description */}
-                            <Typography
-                                sx={{
-                                    fontFamily: "var(--font-inter)",
-                                    fontSize: { xs: "14px", md: "20px" },
-                                    fontWeight: 400,
-                                    color: feature.customStyle.descriptionColor || "rgba(255, 255, 255, 0.7)",
-                                    lineHeight: '32px',
-                                    flex: 1,    
-                                }}
-                            >
-                                {feature.description}
-                            </Typography>
-                        </Box>
-                    </motion.div>
-                ))}
+                        </motion.div>
+                    );
+                })}
             </Box>
         </Box>
     );

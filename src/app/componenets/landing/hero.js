@@ -48,108 +48,118 @@ export default function Hero() {
                 />
             </Box>
 
-            {/* Badge with Conic Gradient Animation */}
+            {/* Badge with Glassmorphism and Expansion */}
             <Box
+                component={motion.div}
+                initial={{ width: "36px" }}
+                animate={{ width: "299px" }}
+                transition={{ duration: 2, delay: 2.5, ease: "circOut" }}
                 sx={{
                     position: "relative",
                     zIndex: 1,
-                    width: "299px",
                     height: "38px",
                     overflow: "hidden",
                     borderRadius: "25px",
-                    marginBottom: "32px",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    backdropFilter: "blur(10px)",
+                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
                 }}
             >
-                {/* Rotating conic gradient */}
-                <motion.div
-                    style={{
-                        position: "absolute",
-                        top: "-450%",
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        height: "1000%",
-                        background: "conic-gradient(transparent 200deg, #ffffff)",
-                        borderRadius: "25px",
-                        zIndex: 1,
-                    }}
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: 360 }}
-                    transition={{
-                        duration: 3,
-                        ease: "linear",
-                        repeat: Infinity,
-                        repeatDelay: 0,
-                    }}
-                />
-
-                {/* Inner overlay */}
+                {/* Rotating Border with CSS Mask */}
                 <Box
                     sx={{
                         position: "absolute",
-                        top: "1px",
-                        left: "1px",
-                        right: "1px",
-                        bottom: "1px",
-                        backdropFilter: "blur(2px)",
-                        backgroundColor: "rgba(255, 255, 255, 0.2)",
-                        border: "1px solid rgba(255, 255, 255, 0.2)",
-                        borderRadius: "24px",
-                        zIndex: 2,
+                        inset: 0,
+                        zIndex: 1,
+                        borderRadius: "25px",
+                        padding: "1.5px", // Border width
+                        mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                        maskComposite: "exclude",
+                        WebkitMaskComposite: "xor",
+                        pointerEvents: "none",
                     }}
-                />
-
+                >
+                    <motion.div
+                        style={{
+                            position: "absolute",
+                            top: "-450%",
+                            left: "-50%",
+                            width: "200%",
+                            height: "1000%",
+                            background: "conic-gradient(transparent 230deg, #ffffff)",
+                            opacity: 0.6,
+                        }}
+                        initial={{ rotate: 0 }}
+                        animate={{ rotate: 360 }}
+                        transition={{
+                            duration: 3,
+                            ease: "linear",
+                            repeat: Infinity,
+                            repeatDelay: 0,
+                        }}
+                    />
+                </Box>
                 {/* Content */}
                 <Box
                     sx={{
                         position: "relative",
                         zIndex: 3,
-                        width: "100%",
+                        width: "299px",
                         height: "100%",
                         display: "flex",
                         alignItems: "center",
                         gap: "16px",
-                        padding: "14px 16px",
+                        padding: "0 14px",
                     }}
                 >
                     <Box
                         sx={{
                             display: "flex",
-                            gap: "10px",
+                            gap: "14px",
                         }}
                     >
-                        <Box
-                            sx={{
-                                width: "8px",
-                                height: "8px",
-                                borderRadius: "50%",
-                                backgroundColor: "#ef4444",
-                            }}
-                        />
-                        <Box
-                            sx={{
-                                width: "8px",
-                                height: "8px",
-                                borderRadius: "50%",
-                                backgroundColor: "#f59e0b",
-                            }}
-                        />
-                        <Box
-                            sx={{
-                                width: "8px",
-                                height: "8px",
-                                borderRadius: "50%",
-                                backgroundColor: "#22c55e",
-                            }}
-                        />
+                        {["#22c55e", "#ef4444", "#f59e0b"].map((color, i) => (
+                            <Box
+                                key={i}
+                                component={motion.div}
+                                animate={{
+                                    opacity: i === 0
+                                        ? [1, 1, 0, 0] // Green: Show for 75%, hide for 25%
+                                        : i === 1
+                                            ? [0, 0, 1, 1, 0, 0] // Red: Show at 25%, hide at 75%
+                                            : [0, 0, 1, 1, 0, 0] // Yellow: Show at 50%, hide at 75%
+                                }}
+                                transition={{
+                                    duration: 2,
+                                    times: i === 0
+                                        ? [0, 0.75, 0.75, 1]
+                                        : i === 1
+                                            ? [0, 0.25, 0.25, 0.75, 0.75, 1]
+                                            : [0, 0.5, 0.5, 0.75, 0.75, 1],
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                }}
+                                sx={{
+                                    width: "10px",
+                                    height: "10px",
+                                    borderRadius: "50%",
+                                    backgroundColor: color,
+                                }}
+                            />
+                        ))}
                     </Box>
                     <Typography
+                        component={motion.p}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 2.6 }}
                         sx={{
                             fontSize: "10px",
                             fontWeight: 400,
                             fontFamily: "var(--font-inter)",
                             color: "rgba(255, 255, 255, 0.8)",
                             textTransform: "uppercase",
+                            whiteSpace: "nowrap",
                         }}
                     >
                         The new standard for freelancers
@@ -240,7 +250,7 @@ export default function Hero() {
                             zIndex: 1,
                         }}
                         initial={{ rotate: 0 }}
-                        animate={{ rotate: -360 }}
+                        animate={{ rotate: 360 }}
                         transition={{
                             duration: 3,
                             ease: "linear",
@@ -315,7 +325,7 @@ export default function Hero() {
                             zIndex: 1,
                         }}
                         initial={{ rotate: 0 }}
-                        animate={{ rotate: -360 }}
+                        animate={{ rotate: 360 }}
                         transition={{
                             duration: 3,
                             ease: "linear",
