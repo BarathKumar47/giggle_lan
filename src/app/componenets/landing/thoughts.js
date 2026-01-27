@@ -43,7 +43,7 @@ const Thoughts = () => {
         <Box
             sx={{
                 width: "100%",
-                background: "#000000",
+                background: "black",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
