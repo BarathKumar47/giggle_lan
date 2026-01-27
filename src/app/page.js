@@ -4,6 +4,8 @@ import WorkRules from "./componenets/landing/workRules";
 import ContactSection from "./componenets/landing/contactSection";
 import BrandLogo from "./componenets/landing/brandlogo";
 import Thoughts from "./componenets/landing/thoughts";
+import TheProcess from "./componenets/landing/theProcess";
+
 
 export default function Home() {
   return (
@@ -11,6 +13,7 @@ export default function Home() {
       <Hero />
       <BrandLogo/>
       <WorkRules />
+      <TheProcess />
       <VisionMission />
        <Thoughts/>
       <ContactSection />

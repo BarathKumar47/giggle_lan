@@ -4,6 +4,56 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
+const Crosshair = React.forwardRef(({ sx, squareSide = "left" }, ref) => (
+    <Box
+        ref={ref}
+        sx={{
+            position: "absolute",
+            width: { xs: "30px", md: "45px" },
+            height: { xs: "30px", md: "45px" },
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10,
+            ...sx
+        }}
+    >
+        {/* The Square (Top-Left or Top-Right) */}
+        <Box
+            sx={{
+                position: "absolute",
+                width: { xs: "12px", md: "24px" },
+                height: { xs: "12px", md: "24px" },
+                backgroundColor: "#ffffff",
+                top: 0,
+                [squareSide]: 0,
+            }}
+        />
+        {/* The Plus Symbol (Centered) */}
+        <Box
+            sx={{
+                position: "absolute",
+                width: { xs: "20px", md: "30px" },
+                height: { xs: "20px", md: "30px" },
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                bottom: 0,
+                right: squareSide === "left" ? 0 : "auto",
+                left: squareSide === "right" ? 0 : "auto",
+            }}
+        >
+            {/* Horizontal Line */}
+            <Box sx={{ position: "absolute", width: "100%", height: "5px", backgroundColor: "#ffffff" }} />
+            {/* Vertical Line */}
+            <Box sx={{ position: "absolute", width: "5px", height: "100%", backgroundColor: "#ffffff" }} />
+        </Box>
+    </Box>
+));
+Crosshair.displayName = "Crosshair";
+
+const MotionCrosshair = motion(Crosshair);
+
 export default function VisionMission() {
     return (
         <Box
@@ -19,13 +69,18 @@ export default function VisionMission() {
         >
             {/* Core Values Title Section */}
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: -200 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    mass: 1.2
+                }}
                 viewport={{ once: true }}
-                sx={{
+                style={{
                     textAlign: "center",
-                    marginBottom: { xs: "60px", md: "80px" },
+                    marginBottom: "80px",
                 }}
             >
                 <Box
@@ -60,11 +115,10 @@ export default function VisionMission() {
                 <Typography
                     sx={{
                         fontFamily: "var(--font-roboto)",
-                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
+                        fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                         fontWeight: 500,
                         color: "#ffffff",
                         lineHeight: 1.1,
-
                         marginBottom: "0px",
                     }}
                 >
@@ -74,13 +128,13 @@ export default function VisionMission() {
                 <Typography
                     sx={{
                         fontFamily: "var(--font-playfair)",
-                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
+                        fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                         fontWeight: 400,
                         fontStyle: "italic",
                         color: "#ffffff",
                         lineHeight: 1.1,
                         textAlign: "center",
-                        marginBottom: { xs: "auto", md: "9rem" },
+                        marginBottom: { xs: "2rem", md: "9rem" },
                     }}
                 >
                     Stars
@@ -90,7 +144,6 @@ export default function VisionMission() {
             {/* Vision Section */}
             <Box
                 sx={{
-                    // maxWidth: "1200px",
                     width: "100%",
                     marginBottom: { xs: "80px", md: "120px" },
                     display: "flex",
@@ -101,125 +154,151 @@ export default function VisionMission() {
                 }}
             >
                 {/* Vision Content - Left Side */}
-                <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    viewport={{ once: true }}
+                <Box
                     sx={{
                         flex: { xs: "1", md: "1" },
                         maxWidth: { xs: "100%", md: "none" }
                     }}
                 >
-                    <Box sx={{
-                        marginBottom: "50px",
-                        lineHeight: 1.2,
-                        border: "1px solid #ffffff",
-                        padding: "5px 20px",
-                        position: "relative",
-                        display: "inline-block"
-                    }}>
-                        {/* Corner squares */}
-                        <Box sx={{
-                            position: "absolute",
-                            top: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            top: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            top: "-10px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            bottom: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            bottom: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            bottom: "-10px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Typography
-                            component="span"
+                    <Box
+                        sx={{
+                            display: "inline-block",
+                            position: "relative",
+                            marginBottom: "50px",
+                            maxWidth: { xs: "fit-content", md: "none" },
+                            margin: { xs: "0 auto 50px auto", md: "0 0 50px 0" }
+                        }}
+                    >
+                        {/* 1. Static Anchor Square (Stays at TL) */}
+                        <Box
+                            component={motion.div}
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            transition={{ duration: 0.3 }}
+                            viewport={{ once: true }}
                             sx={{
-                                fontFamily: "var(--font-playfair)",
-                                fontStyle: "italic",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
-                                fontWeight: 400,
-                                color: "#ffffff",
+                                position: "absolute",
+                                top: { xs: "-5px", md: "-10px" },
+                                left: { xs: "-5px", md: "-10px" },
+                                width: { xs: "10px", md: "20px" },
+                                height: { xs: "10px", md: "20px" },
+                                backgroundColor: "#ffffff",
+                                zIndex: 3
+                            }}
+                        />
+
+                        {/* 2. Traveling Crosshair (Moves from TL to BR) */}
+                        <MotionCrosshair
+                            squareSide="left"
+                            initial={{ top: 0, left: 0 }}
+                            whileInView={{ top: "100%", left: "100%" }}
+                            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            sx={{
+                                transform: "translate(-50%, -50%)",
+                            }}
+                        />
+
+                        {/* 3. Expansion Wrapper (Box and Content Box) */}
+                        <Box
+                            component={motion.div}
+                            initial={{ scale: 0, opacity: 0 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            sx={{
+                                transformOrigin: "top left",
+                                position: "relative",
+                                display: "inline-block"
                             }}
                         >
-                            Our
-                        </Typography>
-                        <Typography
-                            component="span"
-                            sx={{
-                                fontFamily: "var(--font-helvetica)",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
-                                fontWeight: 500,
-                                color: "#ffffff",
-                                marginLeft: "30px",
-                            }}
-                        >
-                            Vision
-                        </Typography>
+                            {/* Simple squares that slide out from TL */}
+                            {[
+                                { top: { xs: "-5px", md: "-10px" }, right: { xs: "-5px", md: "-10px" } }, // TR
+                                { bottom: { xs: "-5px", md: "-10px" }, left: { xs: "-5px", md: "-10px" } }, // BL
+                                { top: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // TC
+                                { bottom: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // BC
+                                { left: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }, // LC
+                                { right: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }  // RC
+                            ].map((pos, i) => (
+                                <Box
+                                    key={i}
+                                    sx={{
+                                        position: "absolute",
+                                        width: { xs: "10px", md: "20px" },
+                                        height: { xs: "10px", md: "20px" },
+                                        backgroundColor: "#ffffff",
+                                        zIndex: 1,
+                                        ...pos
+                                    }}
+                                />
+                            ))}
+
+                            {/* The Border & Content Box */}
+                            <Box sx={{
+                                lineHeight: 1.2,
+                                border: "1px solid #ffffff",
+                                padding: { xs: "5px 12px", md: "5px 20px" },
+                                position: "relative",
+                                display: { xs: "flex", md: "inline-block" },
+                                justifyContent: "center",
+                                alignItems: "center",
+                                whiteSpace: "nowrap",
+                                overflow: "hidden"
+                            }}>
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        fontFamily: "var(--font-playfair)",
+                                        fontStyle: "italic",
+                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontWeight: 400,
+                                        color: "#ffffff",
+                                    }}
+                                >
+                                    Our
+                                </Typography>
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        fontFamily: "var(--font-helvetica)",
+                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontWeight: 500,
+                                        color: "#ffffff",
+                                        marginLeft: { xs: "15px", md: "30px" },
+                                    }}
+                                >
+                                    Vision
+                                </Typography>
+                            </Box>
+                        </Box>
                     </Box>
 
                     <Typography
                         sx={{
                             fontFamily: "var(--font-inter)",
-                            fontSize: { xs: "0.9rem", md: "1.5rem" },
+                            fontSize: { xs: "0.85rem", md: "1.5rem" },
                             fontWeight: 300,
                             color: "#E7E7E7",
-                            lineHeight: '36px',
-                            letterSpacing: '0%',
-                            // maxWidth: { xs: "100%", md: "500px" },   
-                            width: { xs: "100%", md: "650px" }
+                            lineHeight: { xs: "1.6", md: "36px" },
+                            letterSpacing: "0%",
+                            width: { xs: "100%", md: "650px" },
+                            textAlign: { xs: "left", md: "left" },
                         }}
                     >
                         <span style={{ fontWeight: 700 }}>Aquila, The Hunter</span>: <span>A constellation formed in the shape of an eagle that represents man's strive for greatness, excellence and prowess.</span><br />
-                        <span>This constellation is our North Star, our guiding light</span>: <span>It reminds us that our only competition is ourself, our only measure is our life and our only objective is to be better.</span>
-                        <span>We aim to transform a system built around static protocols and tiresome rounds into something that provides every user with tools, motivation and incentives to make progress your partner and prowess your goal.</span><span>A system that is built by and for visionaries to team up and make wonders.</span>
+                        <span>This constellation is our North Star, our guiding light</span>: <span>It reminds us that our only competition is ourself, our only measure is our life and our only objective is to be better.</span><br />
+                        <span>We aim to transform a system built around static protocols and tiresome rounds into something that provides every user with tools, motivation and incentives to make progress your partner and prowess your goal.</span><span>A system that is built by and for visionaries to team up and make wonders.</span><br />
                         <span>And that is our vision</span>: <span>To create a culture that grows on your will to get sh*t done.</span>
                     </Typography>
-                </motion.div>
+                </Box>
 
                 {/* Lightbulb Image - Right Side */}
-                <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
+                <Box
+                    component={motion.div}
+                    initial={{ opacity: 0, x: 100, rotate: 15 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                    transition={{ duration: 1 }}
                     viewport={{ once: true }}
                     sx={{
                         flex: { xs: "1", md: "1" },
@@ -234,34 +313,32 @@ export default function VisionMission() {
                         src="/Bulp.png"
                         alt="Lightbulb"
                         sx={{
-                            width: { xs: "200px", md: "300px", lg: "auto" },
-                            height: { xs: "auto", md: "auto", lg: "auto" },
+                            width: { xs: "150px", sm: "180px", md: "300px", lg: "auto" },
+                            height: "auto",
                             maxWidth: "100%",
                             filter: "drop-shadow(0px 0px 30px rgba(255, 223, 0, 0.3))",
                         }}
                     />
-                </motion.div>
+                </Box>
             </Box>
 
             {/* Mission Section */}
             <Box
                 sx={{
-                    // maxWidth: "1200px",
                     width: "100%",
                     display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
+                    flexDirection: { xs: "column-reverse", md: "row" },
                     alignItems: "center",
                     gap: { xs: "40px", md: "60px" },
-                    // marginTop: { xs: "60px", md: "100px" },
-                    // padding: { xs: "0px", md: "0px 10px" },
-
+                    padding: { xs: "0px", md: "0px 40px" },
                 }}
             >
                 {/* Target Image - Left Side */}
-                <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                <Box
+                    component={motion.div}
+                    initial={{ opacity: 0, x: -100, rotate: -15 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
                     viewport={{ once: true }}
                     sx={{
                         flex: { xs: "1", md: "1" },
@@ -276,131 +353,156 @@ export default function VisionMission() {
                         src="/Target.png"
                         alt="Target"
                         sx={{
-                            width: { xs: "200px", md: "300px", lg: "600px" },
+                            width: { xs: "150px", sm: "180px", md: "300px", lg: "600px" },
                             height: "auto",
                             maxWidth: "100%",
-                            marginBottom: "70px",
+                            marginBottom: { xs: "40px", md: "70px" },
                             filter: "drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.2))",
                         }}
                     />
-                </motion.div>
+                </Box>
 
                 {/* Mission Content - Right Side */}
-                <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
+                <Box
                     sx={{
                         flex: { xs: "1", md: "1" },
                         maxWidth: { xs: "100%", md: "597px" },
-                        // width: { xs: "100%", md: "597px" }
                     }}
                 >
-                    <Box sx={{
-                        // marginRight:"50px",
-                        marginBottom: "50px",
-                        border: "1px solid #ffffff",
-                        padding: "5px 20px",
-                        position: "relative",
-                        display: "inline-block",
-                        transform: "translateY(-70px)"
-                    }}>
-                        {/* Corner squares */}
-                        <Box sx={{
-                            position: "absolute",
-                            top: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            top: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            top: "-10px",
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            bottom: "-10px",
-                            left: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            bottom: "-10px",
-                            right: "-10px",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Box sx={{
-                            position: "absolute",
-                            bottom: "-10px",
-                            left: "48.5%",
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#ffffff"
-                        }} />
-                        <Typography
-                            component="span"
+                    <Box
+                        sx={{
+                            display: "inline-block",
+                            position: "relative",
+                            marginBottom: { xs: "30px", md: "50px" },
+                            transform: { xs: "translateY(-40px)", md: "translateY(-70px)" },
+                            maxWidth: { xs: "fit-content", md: "none" },
+                            margin: { xs: "0 auto 30px auto", md: "0 0 50px 0" }
+                        }}
+                    >
+                        {/* 1. Static Anchor Square (Stays at TR) */}
+                        <Box
+                            component={motion.div}
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            transition={{ duration: 0.3 }}
+                            viewport={{ once: true }}
                             sx={{
-                                fontFamily: "var(--font-playfair)",
-                                fontStyle: "italic",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
-                                fontWeight: 400,
-                                color: "#ffffff",
+                                position: "absolute",
+                                top: { xs: "-5px", md: "-10px" },
+                                right: { xs: "-5px", md: "-10px" },
+                                width: { xs: "10px", md: "20px" },
+                                height: { xs: "10px", md: "20px" },
+                                backgroundColor: "#ffffff",
+                                zIndex: 3
+                            }}
+                        />
+
+                        {/* 2. Traveling Crosshair (Moves from TR to BL) */}
+                        <MotionCrosshair
+                            squareSide="right"
+                            initial={{ top: 0, left: "100%" }}
+                            whileInView={{ top: "100%", left: 0 }}
+                            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            sx={{
+                                transform: "translate(-50%, -50%)",
+                            }}
+                        />
+
+                        {/* 3. Expansion Wrapper (Box and content) */}
+                        <Box
+                            component={motion.div}
+                            initial={{ scale: 0, opacity: 0 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+                            viewport={{ once: true }}
+                            sx={{
+                                transformOrigin: "top right",
+                                position: "relative",
+                                display: "inline-block"
                             }}
                         >
-                            Our
-                        </Typography>
-                        <Typography
-                            component="span"
-                            sx={{
-                                fontFamily: "var(--font-helvetica)",
-                                fontSize: { xs: "2.5rem", sm: "3rem", md: "6rem" },
-                                fontWeight: 500,
-                                color: "#ffffff",
-                                marginLeft: "30px",
-                            }}
-                        >
-                            Mission
-                        </Typography>
+                            {/* Simple squares that slide out from TR */}
+                            {[
+                                { top: { xs: "-5px", md: "-10px" }, left: { xs: "-5px", md: "-10px" } }, // TL
+                                { bottom: { xs: "-5px", md: "-10px" }, right: { xs: "-5px", md: "-10px" } }, // BR
+                                { top: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // TC
+                                { bottom: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // BC
+                                { left: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }, // LC
+                                { right: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }  // RC
+                            ].map((pos, i) => (
+                                <Box
+                                    key={i}
+                                    sx={{
+                                        position: "absolute",
+                                        width: { xs: "10px", md: "20px" },
+                                        height: { xs: "10px", md: "20px" },
+                                        backgroundColor: "#ffffff",
+                                        zIndex: 1,
+                                        ...pos
+                                    }}
+                                />
+                            ))}
+
+                            {/* The Border & Content Box */}
+                            <Box sx={{
+                                lineHeight: 1.2,
+                                border: "1px solid #ffffff",
+                                padding: { xs: "5px 12px", md: "5px 20px" },
+                                position: "relative",
+                                display: { xs: "flex", md: "inline-block" },
+                                justifyContent: "center",
+                                alignItems: "center",
+                                whiteSpace: "nowrap",
+                                overflow: "hidden"
+                            }}>
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        fontFamily: "var(--font-playfair)",
+                                        fontStyle: "italic",
+                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontWeight: 400,
+                                        color: "#ffffff",
+                                    }}
+                                >
+                                    Our
+                                </Typography>
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        fontFamily: "var(--font-helvetica)",
+                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontWeight: 500,
+                                        color: "#ffffff",
+                                        marginLeft: { xs: "15px", md: "30px" },
+                                    }}
+                                >
+                                    Mission
+                                </Typography>
+                            </Box>
+                        </Box>
                     </Box>
 
                     <Typography
                         sx={{
                             fontFamily: "var(--font-inter)",
-                            fontSize: { xs: "0.9rem", md: "1.5rem" },
+                            fontSize: { xs: "0.85rem", md: "1.5rem" },
                             fontWeight: 300,
                             color: "#E7E7E7",
-                            lineHeight: '36px',
-                            letterSpacing: '0%',
-                            textAlign: "right",
+                            lineHeight: { xs: "1.6", md: "36px" },
+                            letterSpacing: "0%",
+                            textAlign: { xs: "left", md: "right" },
                             width: { xs: "100%", md: "600px" },
-                            marginLeft: '-20px',
-                            marginTop: "-70px"
+                            marginLeft: { xs: "0px", md: "-20px" },
+                            marginTop: { xs: "-40px", md: "-70px" }
                         }}
                     >
-                        Our mission is <span style={{ fontWeight: 700 }}>to build a task-first gig marketplace</span> that replaces tiresome hiring, long interviews, and sudden layoffs with something smarter: <span style={{ fontWeight: 700 }}>real work, real outcomes, and real accountability.</span>
-                        We connect owners with skilled people who want flexibility without the corporate theater by emphasizing results over resumes.
+                        Our mission is <span style={{ fontWeight: 700 }}>to build a task-first gig marketplace</span> that replaces tiresome hiring, long interviews, and sudden layoffs with something smarter: <span style={{ fontWeight: 700 }}>real work, real outcomes, and real accountability.</span><br />
+                        We connect owners with skilled people who want flexibility without the corporate theater by emphasizing results over resumes.<br />
                         By cutting friction, protecting independence, and rewarding competence, Giggle helps businesses move faster while empowering people to earn on their own terms, proving that work can be efficient, human, and simple.
                     </Typography>
-                </motion.div>
+                </Box>
             </Box>
         </Box>
     );
