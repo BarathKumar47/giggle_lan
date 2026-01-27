@@ -106,10 +106,10 @@ const Thoughts = () => {
 
                 <Typography
                     sx={{
-                        fontFamily: "var(--font-playfair)",
+
+                        fontFamily: "var(--font-playfair)" ,fontStyle:'italic',
                         fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
                         fontWeight: 400,
-                        fontStyle: "italic",
                         color: "#ffffff",
                         lineHeight: 1.1,
                         textAlign: "center",
@@ -133,16 +133,16 @@ const Thoughts = () => {
                     <Box
                         key={index}
                         component={motion.div}
+                        layout
                         animate={{
                             flex: activeIndex === index ? 3 : 1,
-                            opacity: activeIndex === index ? 1 : 0.7,
                         }}
                         transition={{
                             duration: 0.8,
-                            ease: [0.4, 0, 0.2, 1],
+                            ease: [0.22, 1, 0.36, 1], // Custom expo-out for premium feel
                         }}
                         sx={{
-                            height: "100%",
+                            height: "500px",
                             borderRadius: "35px",
                             overflow: "hidden",
                             position: "relative",
@@ -150,20 +150,29 @@ const Thoughts = () => {
                             flexDirection: "column",
                             justifyContent: "space-between",
                             cursor: "pointer",
+                            opacity: activeIndex === index ? 1 : 0.7,
+                            transition: "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
                         }}
                         onClick={() => setActiveIndex(index)}
                     >
                         {/* Background Image Layer */}
                         <Box
                             component={motion.div}
+                            layout
                             animate={{
                                 filter: activeIndex === index ? "blur(0px)" : "blur(6px)",
                                 scale: activeIndex === index ? 1.05 : 1,
                             }}
-                            transition={{ duration: 0.8 }}
+                            transition={{
+                                duration: 0.8,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
                             sx={{
                                 position: "absolute",
-                                inset: 0,
+                                top: "-2px",
+                                left: "-2px",
+                                right: "-2px",
+                                bottom: "-2px",
                                 backgroundImage: `url('${item.image}')`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
@@ -172,34 +181,53 @@ const Thoughts = () => {
                         />
 
                         {/* Smooth Bottom Blur Accent (Active Only) */}
+                        <AnimatePresence>
+                            {activeIndex === index && (
+                                <Box
+                                    component={motion.div}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                                    sx={{
+                                        position: "absolute",
+                                        top: "-5px", // Extra overfill for blur layer
+                                        left: "-5px",
+                                        right: "-5px",
+                                        bottom: "-5px",
+                                        backgroundImage: `url('${item.image}')`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        filter: "blur(25px)",
+                                        maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
+                                        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
+                                        zIndex: 1,
+                                        pointerEvents: "none",
+                                        scale: 1.05,
+                                    }}
+                                />
+                            )}
+                        </AnimatePresence>
+
+                        {/* Improved Content Visibility Layer (Subtle Dark Overlay) */}
                         <Box
-                            component={motion.div}
-                            animate={{
-                                opacity: activeIndex === index ? 1 : 0,
-                            }}
-                            transition={{ duration: 0.8 }}
                             sx={{
                                 position: "absolute",
                                 inset: 0,
-                                backgroundImage: `url('${item.image}')`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                filter: "blur(25px)",
-                                // Very smooth transition from top to bottom
-                                maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
-                                WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
+                                background: "rgba(0, 0, 0, 0.2)", // Softer darken
                                 zIndex: 1,
-                                pointerEvents: "none",
-                                scale: 1.05,
                             }}
                         />
 
-                        {/* Deeper Gradient Overlay for Content Contrast */}
+                        {/* Deeper Gradient Overlay for Bottom Content Contrast */}
                         <Box
                             sx={{
                                 position: "absolute",
-                                inset: 0,
-                                background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.9) 100%)",
+                                top: "-2px",
+                                left: "-2px",
+                                right: "-2px",
+                                bottom: "-2px",
+                                background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%)",
                                 zIndex: 2,
                             }}
                         />
@@ -215,7 +243,7 @@ const Thoughts = () => {
                             padding: "32px",
                         }}>
                             <Box sx={{
-                                background: "rgba(255, 255, 255, 0.2)",
+                                background: "rgba(255, 255, 255, 0.3)",
                                 backdropFilter: "blur(8px)",
                                 padding: "4px 12px",
                                 borderRadius: "25px",
@@ -232,8 +260,11 @@ const Thoughts = () => {
                             </Box>
 
                             <motion.div
-                                animate={{ opacity: activeIndex === index ? 1 : 0 }}
-                                transition={{ duration: 0.3 }}
+                                animate={{
+                                    opacity: activeIndex === index ? 1 : 0,
+                                    x: activeIndex === index ? 0 : 20
+                                }}
+                                transition={{ duration: 0.5, ease: "easeOut" }}
                             >
                                 <Typography sx={{
                                     color: "rgba(255, 255, 255, 0.8)",
@@ -251,26 +282,30 @@ const Thoughts = () => {
                         <Box
                             sx={{
                                 position: "relative",
-                                zIndex: 3, // Higher than the blur layers
+                                zIndex: 3,
                                 width: "100%",
                                 padding: "32px",
                             }}
                         >
                             <Typography sx={{
                                 color: "#ffffff",
-                                fontSize: activeIndex === index ? "24px" : "24px",
+                                fontSize: activeIndex === index ? "24px" : "18px",
                                 fontFamily: "var(--font-inter)",
                                 fontWeight: 500,
                                 marginBottom: "12px",
                                 lineHeight: 1.2,
+                                transition: "font-size 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
                             }}>
-                                {item.title}
+                                {item.title === "Designing for Asynchronous Teams" ? "Designing\u00A0for Asynchronous Teams" : item.title}
                             </Typography>
 
-                            <Box sx={{
-                                height: activeIndex === index ? "auto" : "24px",
-                                overflow: "hidden"
-                            }}>
+                            <motion.div
+                                layout
+                                sx={{
+                                    height: activeIndex === index ? "auto" : "24px",
+                                    overflow: "hidden"
+                                }}
+                            >
                                 <Typography sx={{
                                     color: "rgba(255, 255, 255, 0.7)",
                                     fontFamily: "var(--font-inter)",
@@ -280,10 +315,14 @@ const Thoughts = () => {
                                     display: "-webkit-box",
                                     WebkitLineClamp: activeIndex === index ? 3 : 1,
                                     WebkitBoxOrient: "vertical",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    opacity: activeIndex === index ? 1 : 0.5,
+                                    transition: "opacity 0.5s ease"
                                 }}>
                                     {item.description}
                                 </Typography>
-                            </Box>
+                            </motion.div>
                         </Box>
                     </Box>
                 ))}

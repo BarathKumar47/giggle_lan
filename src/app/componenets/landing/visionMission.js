@@ -22,15 +22,20 @@ const Crosshair = React.forwardRef(({ sx, squareSide = "left" }, ref) => (
         <Box
             sx={{
                 position: "absolute",
-                width: { xs: "12px", md: "24px" },
-                height: { xs: "12px", md: "24px" },
+                width: { xs: "12px", md: "22px" },
+                height: { xs: "12px", md: "22px" },
                 backgroundColor: "#ffffff",
-                top: 0,
-                [squareSide]: 0,
+                top: 10,
+                [squareSide]: 10,
             }}
         />
-        {/* The Plus Symbol (Centered) */}
+        {/* The Plus Symbol (Centered) - with fade out animation */}
         <Box
+            component={motion.div}
+            initial={{ opacity: 1 }}
+            whileInView={{ opacity: 0 }}
+            transition={{ delay: 1.1, duration: 0.3, ease: "easeOut" }}
+            viewport={{ once: true }}
             sx={{
                 position: "absolute",
                 width: { xs: "20px", md: "30px" },
@@ -38,9 +43,9 @@ const Crosshair = React.forwardRef(({ sx, squareSide = "left" }, ref) => (
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                bottom: 0,
+                bottom: -10,
                 right: squareSide === "left" ? 0 : "auto",
-                left: squareSide === "right" ? 0 : "auto",
+                left: squareSide === "right" ? -10 : 25,
             }}
         >
             {/* Horizontal Line */}
@@ -217,7 +222,7 @@ export default function VisionMission() {
                                 { top: { xs: "-5px", md: "-10px" }, right: { xs: "-5px", md: "-10px" } }, // TR
                                 { bottom: { xs: "-5px", md: "-10px" }, left: { xs: "-5px", md: "-10px" } }, // BL
                                 { top: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // TC
-                                { bottom: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // BC
+                                { bottom: { xs: "-5px", md: "-5px" }, left: "50%", transform: "translateX(-50%)" }, // BC
                                 { left: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }, // LC
                                 { right: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }  // RC
                             ].map((pos, i) => (
@@ -238,7 +243,7 @@ export default function VisionMission() {
                             <Box sx={{
                                 lineHeight: 1.2,
                                 border: "1px solid #ffffff",
-                                padding: { xs: "5px 12px", md: "5px 20px" },
+                                padding: { xs: "5px 12px", md: "5px 30px" },
                                 position: "relative",
                                 display: { xs: "flex", md: "inline-block" },
                                 justifyContent: "center",
@@ -285,7 +290,7 @@ export default function VisionMission() {
                             lineHeight: { xs: "1.6", md: "1.8" },
                             letterSpacing: "0.2px",
                             width: { xs: "100%", md: "650px" },
-                            textAlign: { xs: "left", md: "left" },
+                            textAlign: { xs: "left", md: "justify" },
                         }}
                     >
                         <span style={{ fontWeight: 700 }}>Aquila, The Hunter</span>: <span>A constellation formed in the shape of an eagle that represents man's strive for greatness, excellence and prowess.</span><br />
@@ -369,6 +374,9 @@ export default function VisionMission() {
                     sx={{
                         flex: { xs: "1", md: "1" },
                         maxWidth: { xs: "100%", md: "597px" },
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: { xs: "center", md: "flex-end" },
                     }}
                 >
                     <Box
@@ -429,7 +437,7 @@ export default function VisionMission() {
                                 { top: { xs: "-5px", md: "-10px" }, left: { xs: "-5px", md: "-10px" } }, // TL
                                 { bottom: { xs: "-5px", md: "-10px" }, right: { xs: "-5px", md: "-10px" } }, // BR
                                 { top: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // TC
-                                { bottom: { xs: "-5px", md: "-10px" }, left: "50%", transform: "translateX(-50%)" }, // BC
+                                { bottom: { xs: "-5px", md: "-5px" }, left: "50%", transform: "translateX(-50%)" }, // BC
                                 { left: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }, // LC
                                 { right: { xs: "-5px", md: "-10px" }, top: "50%", transform: "translateY(-50%)" }  // RC
                             ].map((pos, i) => (
@@ -450,10 +458,10 @@ export default function VisionMission() {
                             <Box sx={{
                                 lineHeight: 1.2,
                                 border: "1px solid #ffffff",
-                                padding: { xs: "5px 12px", md: "5px 20px" },
+                                padding: { xs: "5px 12px", md: "5px 30px" },
                                 position: "relative",
                                 display: { xs: "flex", md: "inline-block" },
-                                justifyContent: "center",
+                                justifyContent: "end",
                                 alignItems: "center",
                                 whiteSpace: "nowrap",
                                 overflow: "hidden"
@@ -496,7 +504,7 @@ export default function VisionMission() {
                             color: "#E7E7E7",
                             lineHeight: { xs: "1.6", md: "1.8" },
                             letterSpacing: "0.2px",
-                            textAlign: "left",
+                            textAlign: "justify",
                             width: { xs: "100%", md: "600px" },
                             marginTop: { xs: "-40px", md: "-50px" }
                         }}

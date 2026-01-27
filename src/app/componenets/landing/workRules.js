@@ -109,27 +109,27 @@ export default function WorkRules() {
                         justifyContent: "center",
                         alignItems: "center",
                         padding: "12px 24px",
-                                        background: "rgba(255, 255, 255, 0.1)",
-                                        border: "1px solid rgba(255, 255, 255, 0.2)",
-                                        borderRadius: "50px",
-                                        marginBottom: "12px",
-                                        width: "fit-content",
-                                        margin: "0 auto 12px auto",
-                                    }}
-                                >
-                                    <Typography
-                                        sx={{
-                                            fontFamily: "var(--font-inter)",
-                                            fontSize: { xs: "0.75rem", md: "10px" },
-                                            fontWeight: 600,
-                                            color: "#E7E7E7",
-                                            letterSpacing: "2px",
-                                            textTransform: "uppercase",
-                                            textAlign: "center",
-                                        }}
-                                    >
-                                       The platform 
-                                    </Typography>
+                        background: "rgba(255, 255, 255, 0.1)",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                        borderRadius: "50px",
+                        marginBottom: "12px",
+                        width: "fit-content",
+                        margin: "0 auto 12px auto",
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontFamily: "var(--font-inter)",
+                            fontSize: { xs: "0.75rem", md: "10px" },
+                            fontWeight: 600,
+                            color: "#E7E7E7",
+                            letterSpacing: "2px",
+                            textTransform: "uppercase",
+                            textAlign: "center",
+                        }}
+                    >
+                        The platform
+                    </Typography>
                 </Box>
 
                 <Typography
@@ -149,7 +149,7 @@ export default function WorkRules() {
                     <Box
                         component="span"
                         sx={{
-                            fontFamily: "var(--font-playfair)",
+                            fontFamily: "var(--font-playfair-display)",
                             fontStyle: "italic",
                             fontWeight: 500,
                         }}
