@@ -12,7 +12,7 @@ export default function Hero() {
             sx={{
                 width: "100%",
                 minHeight: "810px",
-                background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)",
+                background: "transparent",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -22,14 +22,6 @@ export default function Hero() {
                 overflow: "hidden",
             }}
         >
-            <GradientBlob
-                // colors={["#00D9FF", "#7B2FFF", "#FF2E97", "#00FFA3", "#FFD600"]}
-                blobCount={10}
-                animationSpeed={1}
-                blur={40}
-                opacity={0.8}
-                scale={2.5}
-            />
             {/* Logo */}
             <Box
                 sx={{

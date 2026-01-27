@@ -19,8 +19,8 @@ const BrandLogo = () => {
                 background:"black"
             }}
         >
-           
- {/* Logo */}
+
+            {/* Logo */}
             <Box
                 sx={{
                     marginBottom: "40px",
@@ -36,7 +36,7 @@ const BrandLogo = () => {
                         width: "451px",
                     }}
                 />
-            </Box>          
+            </Box>
         </Box>
     );
 };

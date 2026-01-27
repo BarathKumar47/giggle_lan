@@ -5,12 +5,12 @@ import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
 export default function TheProcess() {
-    
+
     return (
         <Box
             sx={{
                 width: "100%",
-                background: "#000000",
+                background: "transparent",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -103,7 +103,7 @@ export default function TheProcess() {
                     marginRight: { xs: "auto", md: "10%" },
                 }}
             >
-                
+
                 <div
                     sx={{ position: "relative", zIndex: 1 }}
                 >
@@ -126,7 +126,7 @@ export default function TheProcess() {
                                 transform: { xs: "none", md: "rotate(-15deg)" },
                                 border: "1px solid #A5A5A5",
                                 "&:hover": {
-                                    transform: { xs: "none", md: "rotate(-15deg) translateY(-4px) scale(1.02)" }, 
+                                    transform: { xs: "none", md: "rotate(-15deg) translateY(-4px) scale(1.02)" },
                                     boxShadow: "0px 0px 32px 0px rgba(165, 165, 165, 0.7)",
                                 },
                             }}
