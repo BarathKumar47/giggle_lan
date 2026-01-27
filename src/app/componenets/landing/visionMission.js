@@ -147,9 +147,9 @@ export default function VisionMission() {
                     width: "100%",
                     marginBottom: { xs: "80px", md: "120px" },
                     display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
-                    alignItems: "center",
-                    gap: { xs: "20px", md: "0px" },
+                    flexDirection: { xs: "column-reverse", md: "row" },
+                    alignItems: "flex-start",
+                    gap: { xs: "40px", md: "60px" },
                     padding: { xs: "0px", md: "0px 40px" },
                 }}
             >
@@ -251,9 +251,10 @@ export default function VisionMission() {
                                     sx={{
                                         fontFamily: "var(--font-playfair)",
                                         fontStyle: "italic",
-                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
                                         fontWeight: 400,
                                         color: "#ffffff",
+                                        textShadow: "0px 0px 20px rgba(255, 255, 255, 0.3)",
                                     }}
                                 >
                                     Our
@@ -262,10 +263,11 @@ export default function VisionMission() {
                                     component="span"
                                     sx={{
                                         fontFamily: "var(--font-helvetica)",
-                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
                                         fontWeight: 500,
                                         color: "#ffffff",
                                         marginLeft: { xs: "15px", md: "30px" },
+                                        textShadow: "0px 0px 20px rgba(255, 255, 255, 0.3)",
                                     }}
                                 >
                                     Vision
@@ -277,11 +279,11 @@ export default function VisionMission() {
                     <Typography
                         sx={{
                             fontFamily: "var(--font-inter)",
-                            fontSize: { xs: "0.85rem", md: "1.5rem" },
+                            fontSize: { xs: "0.9rem", md: "1.125rem" },
                             fontWeight: 300,
                             color: "#E7E7E7",
-                            lineHeight: { xs: "1.6", md: "36px" },
-                            letterSpacing: "0%",
+                            lineHeight: { xs: "1.6", md: "1.8" },
+                            letterSpacing: "0.2px",
                             width: { xs: "100%", md: "650px" },
                             textAlign: { xs: "left", md: "left" },
                         }}
@@ -313,7 +315,7 @@ export default function VisionMission() {
                         src="/Bulp.png"
                         alt="Lightbulb"
                         sx={{
-                            width: { xs: "150px", sm: "180px", md: "300px", lg: "auto" },
+                            width: { xs: "180px", sm: "220px", md: "380px", lg: "auto" },
                             height: "auto",
                             maxWidth: "100%",
                             filter: "drop-shadow(0px 0px 30px rgba(255, 223, 0, 0.3))",
@@ -327,8 +329,8 @@ export default function VisionMission() {
                 sx={{
                     width: "100%",
                     display: "flex",
-                    flexDirection: { xs: "column-reverse", md: "row" },
-                    alignItems: "center",
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: "flex-start",
                     gap: { xs: "40px", md: "60px" },
                     padding: { xs: "0px", md: "0px 40px" },
                 }}
@@ -461,9 +463,10 @@ export default function VisionMission() {
                                     sx={{
                                         fontFamily: "var(--font-playfair)",
                                         fontStyle: "italic",
-                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
                                         fontWeight: 400,
                                         color: "#ffffff",
+                                        textShadow: "0px 0px 20px rgba(255, 255, 255, 0.3)",
                                     }}
                                 >
                                     Our
@@ -472,10 +475,11 @@ export default function VisionMission() {
                                     component="span"
                                     sx={{
                                         fontFamily: "var(--font-helvetica)",
-                                        fontSize: { xs: "1.5rem", sm: "2rem", md: "6rem" },
+                                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
                                         fontWeight: 500,
                                         color: "#ffffff",
                                         marginLeft: { xs: "15px", md: "30px" },
+                                        textShadow: "0px 0px 20px rgba(255, 255, 255, 0.3)",
                                     }}
                                 >
                                     Mission
@@ -487,15 +491,14 @@ export default function VisionMission() {
                     <Typography
                         sx={{
                             fontFamily: "var(--font-inter)",
-                            fontSize: { xs: "0.85rem", md: "1.5rem" },
+                            fontSize: { xs: "0.9rem", md: "1.125rem" },
                             fontWeight: 300,
                             color: "#E7E7E7",
-                            lineHeight: { xs: "1.6", md: "36px" },
-                            letterSpacing: "0%",
-                            textAlign: { xs: "left", md: "right" },
+                            lineHeight: { xs: "1.6", md: "1.8" },
+                            letterSpacing: "0.2px",
+                            textAlign: "left",
                             width: { xs: "100%", md: "600px" },
-                            marginLeft: { xs: "0px", md: "-20px" },
-                            marginTop: { xs: "-40px", md: "-70px" }
+                            marginTop: { xs: "-40px", md: "-50px" }
                         }}
                     >
                         Our mission is <span style={{ fontWeight: 700 }}>to build a task-first gig marketplace</span> that replaces tiresome hiring, long interviews, and sudden layoffs with something smarter: <span style={{ fontWeight: 700 }}>real work, real outcomes, and real accountability.</span><br />

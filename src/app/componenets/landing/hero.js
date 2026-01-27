@@ -3,10 +3,33 @@
 import { Box, Typography, Button } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import GradientBlob from "../ui/GradientBlob";
 
 export default function Hero() {
+    const [showHeader, setShowHeader] = useState(false);
+    const [isInHeroSection, setIsInHeroSection] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowHeader(true);
+        }, 3000);
+
+        const handleScroll = () => {
+            const heroHeight = 810; // Approximate hero section height
+            const scrollPosition = window.scrollY;
+            setIsInHeroSection(scrollPosition < heroHeight);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <Box
             sx={{
@@ -22,22 +45,152 @@ export default function Hero() {
                 overflow: "hidden",
             }}
         >
-            {/* Logo */}
+            <GradientBlob
+                // colors={["#00D9FF", "#7B2FFF", "#FF2E97", "#00FFA3", "#FFD600"]}
+                blobCount={10}
+                animationSpeed={1}
+                blur={40}
+                opacity={0.8}
+                scale={2.5}
+            />
+            
+            {/* Logo/Header Container */}
             <Box
+                component={motion.div}
+                initial={{ width: "192px" }}
+                animate={{ width: showHeader ? "100%" : "192px" }}
+                transition={{ duration: 2, delay: showHeader ? 0 : 2.5, ease: "circOut" }}
                 sx={{
-                    marginBottom: "40px",
                     position: "relative",
                     zIndex: 1,
+                    height: "80px",
+                    overflow: "hidden",
+                    borderRadius: showHeader ? "60px" : "8px",
+                    background: showHeader ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                    backdropFilter: showHeader ? "blur(10px)" : "none",
+                    marginBottom: "100px",
+                    marginTop: "-30px",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: showHeader ? "0 40px" : "0",
                 }}
             >
-                <img
-                    src="/g_logo.svg"
-                    alt="Giggle Logo"
-                    style={{
-                        height: "43px",
-                        width: "192px",
+                {/* Logo */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        position: "absolute",
+                        left: showHeader ? "20px" : "50%",
+                        transform: showHeader ? "none" : "translateX(-50%)",
                     }}
-                />
+                >
+                    <img
+                        src="/g_logo.svg"
+                        alt="Giggle Logo"
+                        style={{
+                            height: "43px",
+                            width: showHeader ? "126px" : "192px",
+                        }}
+                    />
+                </Box>
+
+                {/* Navigation and Buttons - appear when header expands */}
+                <AnimatePresence>
+                    {showHeader && (
+                        <>
+                            {/* Navigation Links - Center */}
+                            <Box
+                                component={motion.div}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                                sx={{
+                                    position: "absolute",
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                    display: "flex",
+                                    gap: "39px",
+                                }}
+                            >
+                                {['Product', 'About', 'Mission', 'Blog'].map((item) => (
+                                    <Typography
+                                        key={item}
+                                        sx={{
+                                            fontFamily: "var(--font-poppins)",
+                                            fontSize: "16px",
+                                            fontWeight: 300,
+                                            color: "#FFFFFF",
+                                            cursor: "pointer",
+                                            '&:hover': {
+                                                color: "#00D9FF",
+                                            },
+                                        }}
+                                    >
+                                        {item}
+                                    </Typography>
+                                ))}
+                            </Box>
+
+                            {/* Buttons - Right */}
+                            <Box
+                                component={motion.div}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                                sx={{
+                                    position: "absolute",
+                                    right: "20px",
+                                    display: "flex",
+                                    gap: "16px",
+                                }}
+                            >
+                                <Button
+                                    // variant="outlined"
+                                    sx={{
+                                        backgroundColor: "#FFFFFF",
+                                        color: "#000000",
+                                        // borderColor: "#ffffff",
+                                        fontFamily: "var(--font-poppins)",
+                                        fontWeight: 400,
+                                        fontSize: "16px",
+                                        textTransform: "none",
+                                        borderRadius: "25px",
+                                        padding: "8px 20px",
+                                        boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
+                                        // '&:hover': {
+                                        //     backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                        //     borderColor: "#ffffff",
+                                        // },
+                                    }}
+                                >
+                                    Sign in
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: "#000000",
+                                        color: "#ffffff",
+                                        fontFamily: "var(--font-poppins)",
+                                        boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
+                                        fontWeight: 400,
+                                        fontSize: "14px",
+                                        textTransform: "none",
+                                        borderRadius: "25px",
+                                        padding: "8px 20px",
+                                        // '&:hover': {
+                                        //     backgroundColor: "#1a1a1a",
+                                        // },
+                                    }}
+                                >
+                                    Get Started
+                                </Button>
+                            </Box>
+                        </>
+                    )}
+                </AnimatePresence>
             </Box>
 
             {/* Badge with Glassmorphism and Expansion */}
@@ -58,7 +211,7 @@ export default function Hero() {
                 }}
             >
                 {/* Rotating Border with CSS Mask */}
-                <Box
+                {/* <Box
                     sx={{
                         position: "absolute",
                         inset: 0,
@@ -90,7 +243,7 @@ export default function Hero() {
                             repeatDelay: 0,
                         }}
                     />
-                </Box>
+                </Box> */}
                 {/* Content */}
                 <Box
                     sx={{
@@ -211,9 +364,9 @@ export default function Hero() {
             <Box
                 sx={{
                     display: "flex",
-                    gap: "32px",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
+                    flexDirection: "column",
+                    gap: "22px",
+                    alignItems: "center",
                     position: "relative",
                     zIndex: 1,
                 }}
@@ -222,8 +375,8 @@ export default function Hero() {
                 <Box
                     sx={{
                         position: "relative",
-                        width: "328px",
-                        height: "56px",
+                        width: "388px",
+                        height: "68px",
                         overflow: "hidden",
                         borderRadius: "35px",
                     }}
@@ -244,7 +397,7 @@ export default function Hero() {
                         initial={{ rotate: 0 }}
                         animate={{ rotate: 360 }}
                         transition={{
-                            duration: 3,
+                            duration: 8,
                             ease: "linear",
                             repeat: Infinity,
                             repeatDelay: 0,
@@ -297,14 +450,14 @@ export default function Hero() {
                 <Box
                     sx={{
                         position: "relative",
-                        width: "328px",
+                        width: "308px",
                         height: "56px",
                         overflow: "hidden",
                         borderRadius: "35px",
                     }}
                 >
                     {/* Rotating conic gradient - black notch on white border */}
-                    <motion.div
+                    {/* <motion.div
                         style={{
                             position: "absolute",
                             top: "-450%",
@@ -319,12 +472,12 @@ export default function Hero() {
                         initial={{ rotate: 0 }}
                         animate={{ rotate: 360 }}
                         transition={{
-                            duration: 3,
+                            duration: 8,
                             ease: "linear",
                             repeat: Infinity,
                             repeatDelay: 0,
                         }}
-                    />
+                    /> */}
 
                     {/* Inner overlay */}
                     <Box
