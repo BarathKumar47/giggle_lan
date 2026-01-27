@@ -53,7 +53,7 @@ export default function Hero() {
                 opacity={0.8}
                 scale={2.5}
             />
-            
+
             {/* Logo/Header Container */}
             <Box
                 component={motion.div}

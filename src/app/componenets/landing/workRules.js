@@ -17,11 +17,11 @@ export default function WorkRules() {
             customWidth: { xs: "100%", md: "100%", lg: "350px" },
             customHeight: { xs: "auto", md: "500px", lg: "680px" },
             customStyle: {
-                background: "rgba(255, 255, 255, 0.08)",
+                background: "#1717176c",
                 border: "1px solid rgba(255, 255, 255, 0.12)",
                 borderRadius: { xs: "20px", md: "60px" },
-                boxShadow: "0px 0px 24px 0px rgba(165, 165, 165, 0.3)",
-                iconBackground: "rgba(255, 255, 255, 0.2)",
+                boxShadow: "0px 0px 24px 0px rgba(0, 0, 0, 0.09)",
+                iconBackground: "rgba(255, 255, 255, 0.1)",
                 iconColor: "#E65930",
                 titleColor: "#ffffff",
                 descriptionColor: "#E7E7E7"
@@ -256,7 +256,7 @@ export default function WorkRules() {
                         >
                             <Box
                                 sx={{
-                                    backdropFilter: "blur(20px)",
+                                    backdropFilter: "blur(0px)",
                                     WebkitBackdropFilter: "blur(20px)",
                                     transform: "translateZ(0)",
                                     willChange: "transform, opacity",
@@ -269,11 +269,12 @@ export default function WorkRules() {
                                     position: "relative",
                                     overflow: "hidden",
                                     background: feature.customStyle.background,
+                                    // background: "rgba(255, 255, 255, 0.08)",
                                     // border: feature.customStyle.border, // Removed static border for animated one
                                     borderRadius: feature.customStyle.borderRadius,
                                     boxShadow: feature.customStyle.boxShadow,
                                     "&:hover": {
-                                        background: feature.customStyle.background.replace("0.1", "0.15").replace("0.08", "0.12"),
+                                        background: feature.customStyle.background === "#000000" ? "#111111" : feature.customStyle.background.replace("0.9", "0.95").replace("0.1", "0.15").replace("0.08", "0.12"),
                                         boxShadow: feature.customStyle.boxShadow.replace("0.3", "0.5").replace("0.4", "0.6"),
                                         transform: "translateY(-4px) scale(1.02)",
                                     },
@@ -323,8 +324,8 @@ export default function WorkRules() {
                                     sx={{
                                         fontFamily: "var(--font-inter)",
                                         fontSize: { xs: "14px", md: "17px" },
-                                        fontWeight: 200,
-                                        color: feature.customStyle.descriptionColor || "rgba(52, 50, 50, 0.28)",
+                                        fontWeight: 250,
+                                        color: feature.customStyle.descriptionColor || "rgba(0, 0, 0, 0.7)",
                                         lineHeight: '30px',
                                         flex: 1,
                                         position: "relative",

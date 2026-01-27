@@ -16,7 +16,7 @@ const BrandLogo = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 overflow: "visible",
-                background:"black"
+                background: "black"
             }}
         >
 
