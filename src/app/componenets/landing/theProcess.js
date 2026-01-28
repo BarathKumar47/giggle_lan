@@ -5,19 +5,101 @@ import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
 export default function TheProcess() {
-    
+
     return (
         <Box
             sx={{
                 width: "100%",
-                background: "#000000",
+                background: "transparent",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 padding: { xs: "60px 20px", md: "80px 32px" },
                 position: "relative",
+                overflow: "hidden", // Contain the SVG
             }}
         >
+            {/* Animated SVG Thread Component - Desktop */}
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    zIndex: 0,
+                    pointerEvents: "none",
+                    display: { xs: "none", md: "block" }
+                }}
+            >
+                <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 1440 2500"
+                    fill="none"
+                    preserveAspectRatio="xMidYMin slice"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <motion.path
+                        d="M900 330 C 800 350, 200 400, 560 650 C 1240 850, 250 850, 850 1010 C 300 1100, 420 1150, 540 1360 C 920 1250, 650 1750, 840 1680"
+                        stroke="#858585"
+                        strokeWidth="4"
+                        strokeDasharray="8 12"
+                        strokeLinecap="round"
+                        initial={{ strokeDashoffset: 0, opacity: 0 }}
+                        whileInView={{
+                            strokeDashoffset: [0, -40],
+                            opacity: 1
+                        }}
+                        transition={{
+                            strokeDashoffset: { duration: 2, repeat: Infinity, ease: "linear" },
+                            opacity: { duration: 1 }
+                        }}
+                        viewport={{ once: true, margin: "-100px" }}
+                    />
+                </svg>
+            </Box>
+
+            {/* Animated SVG Thread Component - Mobile */}
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    zIndex: 0,
+                    pointerEvents: "none",
+                    display: { xs: "block", md: "none" }
+                }}
+            >
+                <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 375 2500" // Viewbox tailored for phone width
+                    fill="none"
+                    preserveAspectRatio="xMidYMin slice"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <motion.path
+                        d="M187 250 C 120 400, 254 500, 187 650 C 120 800, 254 900, 187 1050 C 120 1200, 254 1300, 187 1450 C 120 1600, 254 1700, 187 1850 C 120 2000, 254 2100, 187 2250"
+                        stroke="#858585"
+                        strokeWidth="2"
+                        strokeDasharray="8 12"
+                        strokeLinecap="round"
+                        initial={{ strokeDashoffset: 0, opacity: 0 }}
+                        whileInView={{
+                            strokeDashoffset: [0, -40],
+                            opacity: 1
+                        }}
+                        transition={{
+                            strokeDashoffset: { duration: 2, repeat: Infinity, ease: "linear" },
+                            opacity: { duration: 1 }
+                        }}
+                        viewport={{ once: true, margin: "-100px" }}
+                    />
+                </svg>
+            </Box>
             {/* Section Title */}
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -103,9 +185,9 @@ export default function TheProcess() {
                     marginRight: { xs: "auto", md: "10%" },
                 }}
             >
-                
+
                 <div
-                    sx={{ position: "relative", zIndex: 1 }}
+                    sx={{ position: "relative", zIndex: 2 }}
                 >
                     <Box
                         sx={{
@@ -126,7 +208,7 @@ export default function TheProcess() {
                                 transform: { xs: "none", md: "rotate(-15deg)" },
                                 border: "1px solid #A5A5A5",
                                 "&:hover": {
-                                    transform: { xs: "none", md: "rotate(-15deg) translateY(-4px) scale(1.02)" }, 
+                                    transform: { xs: "none", md: "rotate(-15deg) translateY(-4px) scale(1.02)" },
                                     boxShadow: "0px 0px 32px 0px rgba(165, 165, 165, 0.7)",
                                 },
                             }}
@@ -242,7 +324,7 @@ export default function TheProcess() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 1 * 0.1 }}
                     viewport={{ once: true }}
-                    sx={{ position: "relative", zIndex: 1 }}
+                    sx={{ position: "relative", zIndex: 2 }}
                 >
                     <Box
                         sx={{
@@ -380,7 +462,7 @@ export default function TheProcess() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 2 * 0.1 }}
                     viewport={{ once: true }}
-                    sx={{ position: "relative", zIndex: 1 }}
+                    sx={{ position: "relative", zIndex: 2 }}
                 >
                     <Box
                         sx={{
@@ -518,7 +600,7 @@ export default function TheProcess() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 3 * 0.1 }}
                     viewport={{ once: true }}
-                    sx={{ position: "relative", zIndex: 1 }}
+                    sx={{ position: "relative", zIndex: 2 }}
                 >
                     <Box
                         sx={{
@@ -656,7 +738,7 @@ export default function TheProcess() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 4 * 0.1 }}
                     viewport={{ once: true }}
-                    sx={{ position: "relative", zIndex: 1 }}
+                    sx={{ position: "relative", zIndex: 2 }}
                 >
                     <Box
                         sx={{

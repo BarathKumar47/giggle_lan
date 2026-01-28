@@ -42,7 +42,7 @@ export default function Hero() {
             sx={{
                 width: "100%",
                 minHeight: "810px",
-                background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)",
+                background: "transparent",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",

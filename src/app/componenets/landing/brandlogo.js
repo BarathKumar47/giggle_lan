@@ -3,11 +3,12 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
+import { StarsBackground } from "../ui/stars";
 
 
 const BrandLogo = () => {
     return (
-        <Box
+        <StarsBackground
             sx={{
                 width: "100%",
                 height: "762px",
@@ -15,12 +16,11 @@ const BrandLogo = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                overflow: "visible",
-                background:"black"
+                overflow: "hidden",
+                background: "black"
             }}
         >
-           
- {/* Logo */}
+            {/* Logo */}
             <Box
                 sx={{
                     marginBottom: "40px",
@@ -36,8 +36,8 @@ const BrandLogo = () => {
                         width: "451px",
                     }}
                 />
-            </Box>          
-        </Box>
+            </Box>
+        </StarsBackground>
     );
 };
 

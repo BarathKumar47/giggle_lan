@@ -42,7 +42,7 @@ export default function ContactSection() {
                     style={{
                         flex: 1,
                         textAlign: { xs: "center", lg: "left" },
-                        marginTop:'-7rem'
+                        marginTop: '-7rem'
                     }}
                 >
                     <Typography
@@ -55,7 +55,7 @@ export default function ContactSection() {
                             fontFamily: "var(--font-helvetica)",
                         }}
                     >
-                        Let's build<br />something <Box component="span" sx={{ fontFamily: "var(--font-playfair)" ,fontStyle:'italic'}}>great.</Box>
+                        Let's build<br />something <Box component="span" sx={{ fontFamily: "var(--font-playfair)", fontStyle: 'italic' }}>great.</Box>
                     </Typography>
                     <Typography
                         variant="body1"
@@ -65,13 +65,13 @@ export default function ContactSection() {
                             fontWeight: 300,
                             marginBottom: "40px",
                             lineHeight: '100%',
-                            letterSpacing: '0%',    
+                            letterSpacing: '0%',
                             fontFamily: "var(--font-inter)",
                             maxWidth: { xs: "100%", lg: "500px" },
                         }}
                     >
-                        Have a project in mind? We'd love to hear about it. 
-                        Take a minute to tell us about your project and we'll 
+                        Have a project in mind? We'd love to hear about it.
+                        Take a minute to tell us about your project and we'll
                         get back to you as soon as possible.
                     </Typography>
                     <Box
@@ -165,7 +165,7 @@ export default function ContactSection() {
                             maxWidth: "100%",
                         }}
                     >
-                        
+
                         <Box sx={{ display: "flex", gap: "16px", marginBottom: "20px", flexDirection: { xs: "column", sm: "row" } }}>
                             <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                                 <label
@@ -413,7 +413,7 @@ export default function ContactSection() {
                             sx={{
                                 color: "rgba(255, 255, 255, 0.5)",
                                 fontSize: "12px",
-                                cursor: "pointer",  
+                                cursor: "pointer",
                                 transition: "color 0.3s ease",
                                 fontWeight: 300,
                                 fontFamily: "var(--font-inter)",
@@ -471,7 +471,7 @@ export default function ContactSection() {
                                 },
                             }}
                         >
-                            <FacebookIcon sx={{ color: "#ffffff", fontSize: "36px"  }} />
+                            <FacebookIcon sx={{ color: "#ffffff", fontSize: "36px" }} />
                         </Box>
                         <Box
                             sx={{
