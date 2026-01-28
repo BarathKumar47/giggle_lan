@@ -19,9 +19,16 @@ export default function Hero() {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        // Only apply 3s delay for desktop view
+        if (!isMobile) {
+            const timer = setTimeout(() => {
+                setShowHeader(true);
+            }, 3000);
+            return () => clearTimeout(timer);
+        } else {
+            // For mobile, show header immediately
             setShowHeader(true);
-        }, 3000);
+        }
 
         const handleScroll = () => {
             const heroHeight = 810; // Approximate hero section height
@@ -32,10 +39,12 @@ export default function Hero() {
         window.addEventListener('scroll', handleScroll);
 
         return () => {
-            clearTimeout(timer);
+            if (!isMobile) {
+                clearTimeout(timer);
+            }
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [isMobile]);
 
     return (
         <Box
@@ -61,28 +70,188 @@ export default function Hero() {
                 scale={2.5}
             />
             
-            {/* Header Container - Different for Mobile and Desktop */}
-            {!isMobile ? (
-                // Desktop Header
+            {/* Mobile Header - Always rendered, hidden on desktop with CSS */}
+            <Box
+                sx={{
+                    position: "relative",
+                    zIndex: 1,
+                    height: "60px",
+                    width: "100%",
+                    overflow: "hidden",
+                    borderRadius: "60px",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    backdropFilter: "blur(10px)",
+                    marginBottom: "40px",
+                    marginTop: "-120px",
+                    display: { xs: "flex", md: "none" },
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "0 20px",
+                }}
+            >
+                {/* Logo - Left side */}
                 <Box
-                    component={motion.div}
-                    initial={{ width: "192px" }}
-                    animate={{ width: showHeader ? "100%" : "192px" }}
-                    transition={{ duration: 2, delay: showHeader ? 0 : 2.5, ease: "circOut" }}
                     sx={{
-                        position: "relative",
-                        zIndex: 1,
-                        height: "80px",
-                        overflow: "hidden",
-                        borderRadius: showHeader ? "60px" : "8px",
-                        background: showHeader ? "rgba(255, 255, 255, 0.05)" : "transparent",
-                        backdropFilter: showHeader ? "blur(10px)" : "none",
-                        marginBottom: "100px",
-                        marginTop: "-30px",
                         display: "flex",
                         alignItems: "center",
-                        padding: showHeader ? "0 40px" : "0",
                     }}
+                >
+                    <img
+                        src="/g_logo.svg"
+                        alt="Giggle Logo"
+                        style={{
+                            height: "35px",
+                            width: "100px",
+                        }}
+                    />
+                </Box>
+
+                {/* Hamburger Menu - Right side */}
+                <IconButton
+                    onClick={() => setMobileMenuOpen(true)}
+                    sx={{
+                        color: "#FFFFFF",
+                        padding: "8px",
+                    }}
+                >
+                    <MenuIcon sx={{ fontSize: "28px" }} />
+                </IconButton>
+
+                {/* Mobile Navigation Drawer */}
+                <Drawer
+                    anchor="right"
+                    open={mobileMenuOpen}
+                    onClose={() => setMobileMenuOpen(false)}
+                    sx={{
+                        '& .MuiDrawer-paper': {
+                            width: "280px",
+                            background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)",
+                            backdropFilter: "blur(10px)",
+                            borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
+                        },
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "100%",
+                            padding: "20px",
+                        }}
+                    >
+                        {/* Close Button */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                marginBottom: "40px",
+                            }}
+                        >
+                            <IconButton
+                                onClick={() => setMobileMenuOpen(false)}
+                                sx={{
+                                    color: "#FFFFFF",
+                                    padding: "8px",
+                                }}
+                            >
+                                <CloseIcon sx={{ fontSize: "28px" }} />
+                            </IconButton>
+                        </Box>
+
+                        {/* Navigation Links */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "30px",
+                                marginBottom: "40px",
+                            }}
+                        >
+                            {['Product', 'About', 'Mission', 'Blog'].map((item) => (
+                                <Typography
+                                    key={item}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    sx={{
+                                        fontFamily: "var(--font-poppins)",
+                                        fontSize: "20px",
+                                        fontWeight: 300,
+                                        color: "#FFFFFF",
+                                        cursor: "pointer",
+                                        '&:hover': {
+                                            color: "#00D9FF",
+                                        },
+                                    }}
+                                >
+                                    {item}
+                                </Typography>
+                            ))}
+                        </Box>
+
+                        {/* Mobile Buttons */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "16px",
+                                marginTop: "auto",
+                            }}
+                        >
+                            <Button
+                                sx={{
+                                    backgroundColor: "#FFFFFF",
+                                    color: "#000000",
+                                    fontFamily: "var(--font-poppins)",
+                                    fontWeight: 400,
+                                    fontSize: "16px",
+                                    textTransform: "none",
+                                    borderRadius: "25px",
+                                    padding: "12px 20px",
+                                    boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
+                                }}
+                            >
+                                Sign in
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: "#000000",
+                                    color: "#ffffff",
+                                    fontFamily: "var(--font-poppins)",
+                                    boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
+                                    fontWeight: 400,
+                                    fontSize: "14px",
+                                    textTransform: "none",
+                                    borderRadius: "25px",
+                                    padding: "12px 20px",
+                                }}
+                            >
+                                Get Started
+                            </Button>
+                        </Box>
+                    </Box>
+                </Drawer>
+            </Box>
+
+            {/* Desktop Header - Always rendered for desktop, with animation and delay */}
+            <Box
+                component={motion.div}
+                initial={{ width: "192px" }}
+                animate={{ width: showHeader ? "100%" : "192px" }}
+                transition={{ duration: 2, delay: showHeader ? 0 : 2.5, ease: "circOut" }}
+                sx={{
+                    position: "relative",
+                    zIndex: 1,
+                    height: "80px",
+                    overflow: "hidden",
+                    borderRadius: showHeader ? "60px" : "8px",
+                    background: showHeader ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                    backdropFilter: showHeader ? "blur(10px)" : "none",
+                    marginBottom: "100px",
+                    marginTop: "-30px",
+                    display: { xs: "none", md: "flex" },
+                    alignItems: "center",
+                    padding: showHeader ? "0 40px" : "0",
+                }}
                 >
                     {/* Logo */}
                     <Box
@@ -192,169 +361,6 @@ export default function Hero() {
                         )}
                     </AnimatePresence>
                 </Box>
-            ) : (
-                // Mobile Header
-                <Box
-                    sx={{
-                        position: "relative",
-                        zIndex: 1,
-                        height: "60px",
-                        width: "100%",
-                        overflow: "hidden",
-                        borderRadius: "60px",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        backdropFilter: "blur(10px)",
-                        marginBottom: "40px",
-                        marginTop: "-120px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        padding: "0 20px",
-                    }}
-                >
-                    {/* Logo - Left side */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <img
-                            src="/g_logo.svg"
-                            alt="Giggle Logo"
-                            style={{
-                                height: "35px",
-                                width: "100px",
-                            }}
-                        />
-                    </Box>
-
-                    {/* Hamburger Menu - Right side */}
-                    <IconButton
-                        onClick={() => setMobileMenuOpen(true)}
-                        sx={{
-                            color: "#FFFFFF",
-                            padding: "8px",
-                        }}
-                    >
-                        <MenuIcon sx={{ fontSize: "28px" }} />
-                    </IconButton>
-
-                    {/* Mobile Navigation Drawer */}
-                    <Drawer
-                        anchor="right"
-                        open={mobileMenuOpen}
-                        onClose={() => setMobileMenuOpen(false)}
-                        sx={{
-                            '& .MuiDrawer-paper': {
-                                width: "280px",
-                                background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)",
-                                backdropFilter: "blur(10px)",
-                                borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
-                            },
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                height: "100%",
-                                padding: "20px",
-                            }}
-                        >
-                            {/* Close Button */}
-                            <Box
-                                sx={{   
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    marginBottom: "40px",
-                                }}
-                            >
-                                <IconButton
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    sx={{
-                                        color: "#FFFFFF",
-                                        padding: "8px",
-                                    }}
-                                >
-                                    <CloseIcon sx={{ fontSize: "28px" }} />
-                                </IconButton>
-                            </Box>
-
-                            {/* Navigation Links */}
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "30px",
-                                    marginBottom: "40px",
-                                }}
-                            >
-                                {['Product', 'About', 'Mission', 'Blog'].map((item) => (
-                                    <Typography
-                                        key={item}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        sx={{
-                                            fontFamily: "var(--font-poppins)",
-                                            fontSize: "20px",
-                                            fontWeight: 300,
-                                            color: "#FFFFFF",
-                                            cursor: "pointer",
-                                            '&:hover': {
-                                                color: "#00D9FF",
-                                            },
-                                        }}
-                                    >
-                                        {item}
-                                    </Typography>
-                                ))}
-                            </Box>
-
-                            {/* Mobile Buttons */}
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "16px",
-                                    marginTop: "auto",
-                                }}
-                            >
-                                <Button
-                                    sx={{
-                                        backgroundColor: "#FFFFFF",
-                                        color: "#000000",
-                                        fontFamily: "var(--font-poppins)",
-                                        fontWeight: 400,
-                                        fontSize: "16px",
-                                        textTransform: "none",
-                                        borderRadius: "25px",
-                                        padding: "12px 20px",
-                                        boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
-                                    }}
-                                >
-                                    Sign in
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    sx={{
-                                        backgroundColor: "#000000",
-                                        color: "#ffffff",
-                                        fontFamily: "var(--font-poppins)",
-                                        boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
-                                        fontWeight: 400,
-                                        fontSize: "14px",
-                                        textTransform: "none",
-                                        borderRadius: "25px",
-                                        padding: "12px 20px",
-                                    }}
-                                >
-                                    Get Started
-                                </Button>
-                            </Box>
-                        </Box>
-                    </Drawer>
-                </Box>
-            )}
 
             {/* Badge with Glassmorphism and Expansion */}
             <Box
@@ -509,8 +515,8 @@ export default function Hero() {
             <Typography
                 sx={{
                     fontFamily: "var(--font-inter)",
-                    fontSize: "24px",
-                    fontWeight: 400,
+                    fontSize: { xs: "18px", sm: "24px" },
+                    fontWeight: 200,
                     color: "#E7E7E7",
                     textAlign: "center",
                     maxWidth: "782px",
