@@ -1,19 +1,50 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import Typography from "@mui/material/Typography";
 
 const Thoughts = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+    const intervalRef = useRef(null);
+    const resumeTimeoutRef = useRef(null);
+
+    // Handle card click - stop auto-rotation and show clicked card
+    const handleCardClick = useCallback((index) => {
+        // Clear any existing timers
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+        if (resumeTimeoutRef.current) {
+            clearTimeout(resumeTimeoutRef.current);
+        }
+
+        // Set the clicked card as active
+        setActiveIndex(index);
+        setIsPaused(true);
+
+        // Resume auto-rotation after 10 seconds of inactivity
+        resumeTimeoutRef.current = setTimeout(() => {
+            setIsPaused(false);
+        }, 10000);
+    }, []);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % 3);
-        }, 6000); // 6 seconds as requested
-        return () => clearInterval(interval);
-    }, []);
+        if (!isPaused) {
+            intervalRef.current = setInterval(() => {
+                setActiveIndex((prev) => (prev + 1) % 3);
+            }, 5000);
+        }
+
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, [isPaused]);
 
     const content = [
         {
@@ -107,7 +138,7 @@ const Thoughts = () => {
                 <Typography
                     sx={{
 
-                        fontFamily: "var(--font-playfair)" ,fontStyle:'italic',
+                        fontFamily: "var(--font-playfair)", fontStyle: 'italic',
                         fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
                         fontWeight: 400,
                         color: "#ffffff",
@@ -129,203 +160,205 @@ const Thoughts = () => {
                 maxWidth: "1400px",
                 height: "518px",
             }}>
-                {content.map((item, index) => (
-                    <Box
-                        key={index}
-                        component={motion.div}
-                        layout
-                        animate={{
-                            flex: activeIndex === index ? 3 : 1,
-                        }}
-                        transition={{
-                            duration: 0.8,
-                            ease: [0.22, 1, 0.36, 1], // Custom expo-out for premium feel
-                        }}
-                        sx={{
-                            height: "500px",
-                            borderRadius: "35px",
-                            overflow: "hidden",
-                            position: "relative",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                            cursor: "pointer",
-                            opacity: activeIndex === index ? 1 : 0.7,
-                            transition: "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
-                        }}
-                        onClick={() => setActiveIndex(index)}
-                    >
-                        {/* Background Image Layer */}
+                <LayoutGroup>
+                    {content.map((item, index) => (
                         <Box
+                            key={index}
                             component={motion.div}
-                            layout
+                            layoutId={`card-${index}`}
                             animate={{
-                                filter: activeIndex === index ? "blur(0px)" : "blur(6px)",
-                                scale: activeIndex === index ? 1.05 : 1,
+                                flex: activeIndex === index ? 3 : 1,
+                                opacity: activeIndex === index ? 1 : 0.7,
                             }}
                             transition={{
-                                duration: 0.8,
-                                ease: [0.22, 1, 0.36, 1],
+                                duration: 0.7,
+                                ease: [0.4, 0, 0.2, 1],
                             }}
                             sx={{
-                                position: "absolute",
-                                top: "-2px",
-                                left: "-2px",
-                                right: "-2px",
-                                bottom: "-2px",
-                                backgroundImage: `url('${item.image}')`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                zIndex: 0,
-                            }}
-                        />
-
-                        {/* Smooth Bottom Blur Accent (Active Only) */}
-                        <AnimatePresence>
-                            {activeIndex === index && (
-                                <Box
-                                    component={motion.div}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                                    sx={{
-                                        position: "absolute",
-                                        top: "-5px", // Extra overfill for blur layer
-                                        left: "-5px",
-                                        right: "-5px",
-                                        bottom: "-5px",
-                                        backgroundImage: `url('${item.image}')`,
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "center",
-                                        filter: "blur(25px)",
-                                        maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
-                                        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
-                                        zIndex: 1,
-                                        pointerEvents: "none",
-                                        scale: 1.05,
-                                    }}
-                                />
-                            )}
-                        </AnimatePresence>
-
-                        {/* Improved Content Visibility Layer (Subtle Dark Overlay) */}
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                inset: 0,
-                                background: "rgba(0, 0, 0, 0.2)", // Softer darken
-                                zIndex: 1,
-                            }}
-                        />
-
-                        {/* Deeper Gradient Overlay for Bottom Content Contrast */}
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                top: "-2px",
-                                left: "-2px",
-                                right: "-2px",
-                                bottom: "-2px",
-                                background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%)",
-                                zIndex: 2,
-                            }}
-                        />
-
-                        {/* Top Content */}
-                        <Box sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            position: "relative",
-                            zIndex: 2,
-                            width: "100%",
-                            padding: "32px",
-                        }}>
-                            <Box sx={{
-                                background: "rgba(255, 255, 255, 0.3)",
-                                backdropFilter: "blur(8px)",
-                                padding: "4px 12px",
-                                borderRadius: "25px",
-                                border: "1px solid rgba(255, 255, 255, 0.3)",
-                            }}>
-                                <Typography sx={{
-                                    color: "#ffffff",
-                                    fontSize: "12px",
-                                    fontWeight: 500,
-                                    whiteSpace: "nowrap",
-                                }}>
-                                    {item.tag}
-                                </Typography>
-                            </Box>
-
-                            <motion.div
-                                animate={{
-                                    opacity: activeIndex === index ? 1 : 0,
-                                    x: activeIndex === index ? 0 : 20
-                                }}
-                                transition={{ duration: 0.5, ease: "easeOut" }}
-                            >
-                                <Typography sx={{
-                                    color: "rgba(255, 255, 255, 0.8)",
-                                    fontSize: "16px",
-                                    whiteSpace: "nowrap",
-                                    fontFamily: "var(--font-inter)",
-                                    fontWeight: 500,
-                                }}>
-                                    {item.Dateandtime}
-                                </Typography>
-                            </motion.div>
-                        </Box>
-
-                        {/* Bottom Content */}
-                        <Box
-                            sx={{
+                                height: "500px",
+                                borderRadius: "35px",
+                                overflow: "hidden",
                                 position: "relative",
-                                zIndex: 3,
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "space-between",
+                                cursor: "pointer",
+                                willChange: "flex, opacity",
+                            }}
+                            onClick={() => handleCardClick(index)}
+                        >
+                            {/* Background Image Layer */}
+                            <Box
+                                component={motion.div}
+                                animate={{
+                                    filter: activeIndex === index ? "blur(0px)" : "blur(6px)",
+                                    scale: activeIndex === index ? 1.05 : 1,
+                                }}
+                                transition={{
+                                    duration: 0.7,
+                                    ease: [0.4, 0, 0.2, 1],
+                                }}
+                                sx={{
+                                    position: "absolute",
+                                    top: "-2px",
+                                    left: "-2px",
+                                    right: "-2px",
+                                    bottom: "-2px",
+                                    backgroundImage: `url('${item.image}')`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    zIndex: 0,
+                                    willChange: "filter, transform",
+                                }}
+                            />
+
+                            {/* Smooth Bottom Blur Accent (Active Only) */}
+                            <AnimatePresence>
+                                {activeIndex === index && (
+                                    <Box
+                                        component={motion.div}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.6, ease: [0.4, 0, 0.4, 1] }}
+                                        sx={{
+                                            position: "absolute",
+                                            top: "-5px", // Extra overfill for blur layer
+                                            left: "-5px",
+                                            right: "-5px",
+                                            bottom: "-5px",
+                                            backgroundImage: `url('${item.image}')`,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                            filter: "blur(25px)",
+                                            maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
+                                            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.6) 60%, black 100%)",
+                                            zIndex: 1,
+                                            pointerEvents: "none",
+                                            scale: 1.05,
+                                        }}
+                                    />
+                                )}
+                            </AnimatePresence>
+
+                            {/* Improved Content Visibility Layer (Subtle Dark Overlay) */}
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    inset: 0,
+                                    background: "rgba(0, 0, 0, 0.2)", // Softer darken
+                                    zIndex: 1,
+                                }}
+                            />
+
+                            {/* Deeper Gradient Overlay for Bottom Content Contrast */}
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    top: "-2px",
+                                    left: "-2px",
+                                    right: "-2px",
+                                    bottom: "-2px",
+                                    background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%)",
+                                    zIndex: 2,
+                                }}
+                            />
+
+                            {/* Top Content */}
+                            <Box sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                position: "relative",
+                                zIndex: 2,
                                 width: "100%",
                                 padding: "32px",
-                            }}
-                        >
-                            <Typography sx={{
-                                color: "#ffffff",
-                                fontSize: activeIndex === index ? "24px" : "18px",
-                                fontFamily: "var(--font-inter)",
-                                fontWeight: 500,
-                                marginBottom: "12px",
-                                lineHeight: 1.2,
-                                transition: "font-size 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
                             }}>
-                                {item.title === "Designing for Asynchronous Teams" ? "Designing\u00A0for Asynchronous Teams" : item.title}
-                            </Typography>
+                                <Box sx={{
+                                    background: "rgba(255, 255, 255, 0.3)",
+                                    backdropFilter: "blur(8px)",
+                                    padding: "4px 12px",
+                                    borderRadius: "25px",
+                                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                                }}>
+                                    <Typography sx={{
+                                        color: "#ffffff",
+                                        fontSize: "12px",
+                                        fontWeight: 500,
+                                        whiteSpace: "nowrap",
+                                    }}>
+                                        {item.tag}
+                                    </Typography>
+                                </Box>
 
-                            <motion.div
-                                layout
+                                <motion.div
+                                    animate={{
+                                        opacity: activeIndex === index ? 1 : 0,
+                                        x: activeIndex === index ? 0 : 20
+                                    }}
+                                    transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                                >
+                                    <Typography sx={{
+                                        color: "rgba(255, 255, 255, 0.8)",
+                                        fontSize: "16px",
+                                        whiteSpace: "nowrap",
+                                        fontFamily: "var(--font-inter)",
+                                        fontWeight: 500,
+                                    }}>
+                                        {item.Dateandtime}
+                                    </Typography>
+                                </motion.div>
+                            </Box>
+
+                            {/* Bottom Content */}
+                            <Box
                                 sx={{
-                                    height: activeIndex === index ? "auto" : "24px",
-                                    overflow: "hidden"
+                                    position: "relative",
+                                    zIndex: 3,
+                                    width: "100%",
+                                    padding: "32px",
                                 }}
                             >
                                 <Typography sx={{
-                                    color: "rgba(255, 255, 255, 0.7)",
+                                    color: "#ffffff",
+                                    fontSize: activeIndex === index ? "24px" : "18px",
                                     fontFamily: "var(--font-inter)",
                                     fontWeight: 500,
-                                    fontSize: "16px",
-                                    lineHeight: 1.5,
-                                    display: "-webkit-box",
-                                    WebkitLineClamp: activeIndex === index ? 3 : 1,
-                                    WebkitBoxOrient: "vertical",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    opacity: activeIndex === index ? 1 : 0.5,
-                                    transition: "opacity 0.5s ease"
+                                    marginBottom: "12px",
+                                    lineHeight: 1.2,
+                                    transition: "font-size 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                                 }}>
-                                    {item.description}
+                                    {item.title === "Designing for Asynchronous Teams" ? "Designing\u00A0for Asynchronous Teams" : item.title}
                                 </Typography>
-                            </motion.div>
+
+                                <motion.div
+                                    layout
+                                    sx={{
+                                        height: activeIndex === index ? "auto" : "24px",
+                                        overflow: "hidden"
+                                    }}
+                                >
+                                    <Typography sx={{
+                                        color: "rgba(255, 255, 255, 0.7)",
+                                        fontFamily: "var(--font-inter)",
+                                        fontWeight: 500,
+                                        fontSize: "16px",
+                                        lineHeight: 1.5,
+                                        display: "-webkit-box",
+                                        WebkitLineClamp: activeIndex === index ? 3 : 1,
+                                        WebkitBoxOrient: "vertical",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        opacity: activeIndex === index ? 1 : 0.5,
+                                        transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)"
+                                    }}>
+                                        {item.description}
+                                    </Typography>
+                                </motion.div>
+                            </Box>
                         </Box>
-                    </Box>
-                ))}
+                    ))}
+                </LayoutGroup>
             </Box>
 
             {/* Navigation Indicators */}
@@ -347,7 +380,7 @@ const Thoughts = () => {
                             border: activeIndex === index ? "2px solid rgba(255, 255, 255, 0.5)" : "2px solid transparent",
                         }}
                         transition={{
-                            duration: 0.8,
+                            duration: 0.6,
                             ease: [0.4, 0, 0.2, 1],
                         }}
                         sx={{
@@ -355,7 +388,7 @@ const Thoughts = () => {
                             borderRadius: "25px",
                             cursor: "pointer",
                         }}
-                        onClick={() => setActiveIndex(index)}
+                        onClick={() => handleCardClick(index)}
                     />
                 ))}
             </Box>
