@@ -321,7 +321,7 @@ export default function VisionMission() {
                 >
                     <Box
                         component="img"
-                        src="/Bulp.png"
+                        src="/Bulp.webp"
                         alt="Lightbulb"
                         sx={{
                             width: { xs: "180px", sm: "220px", md: "380px", lg: "auto" },
@@ -361,7 +361,7 @@ export default function VisionMission() {
                 >
                     <Box
                         component="img"
-                        src="/Target.png"
+                        src="/Target.webp"
                         alt="Target"
                         sx={{
                             width: { xs: "150px", sm: "180px", md: "300px", lg: "600px" },

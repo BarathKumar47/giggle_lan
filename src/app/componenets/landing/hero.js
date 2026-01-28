@@ -60,7 +60,7 @@ export default function Hero() {
                 opacity={0.8}
                 scale={2.5}
             />
-            
+
             {/* Header Container - Different for Mobile and Desktop */}
             {!isMobile ? (
                 // Desktop Header
@@ -264,7 +264,7 @@ export default function Hero() {
                         >
                             {/* Close Button */}
                             <Box
-                                sx={{   
+                                sx={{
                                     display: "flex",
                                     justifyContent: "flex-end",
                                     marginBottom: "40px",
