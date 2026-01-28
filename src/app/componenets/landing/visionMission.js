@@ -312,7 +312,7 @@ export default function VisionMission() {
                             color: "#E7E7E7",
                             lineHeight: { xs: "1.6", md: "1.8" },
                             letterSpacing: "0.2px",
-                            width: { xs: "100%", md: "550px" },
+                            width: { xs: "100%", md: "600px" },
                             textAlign: { xs: "justify", md: "justify" },
                         }}
                     >
@@ -528,7 +528,7 @@ export default function VisionMission() {
                             lineHeight: { xs: "1.6", md: "1.8" },
                             letterSpacing: "0.2px",
                             textAlign: { xs: "justify", md: "justify" },
-                            width: { xs: "100%", md: "550px" },
+                            width: { xs: "100%", md: "600px" },
                             marginTop: { xs: "-40px", md: "-50px" }
                         }}
                     >
