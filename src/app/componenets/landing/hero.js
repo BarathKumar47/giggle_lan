@@ -177,9 +177,9 @@ export default function Hero() {
                                         fontWeight: 300,
                                         color: "#FFFFFF",
                                         cursor: "pointer",
-                                        '&:hover': {
-                                            color: "#00D9FF",
-                                        },
+                                        // '&:hover': {
+                                        //     color: "#00D9FF",
+                                        // },
                                     }}
                                 >
                                     {item}
@@ -301,9 +301,9 @@ export default function Hero() {
                                                 fontWeight: 300,
                                                 color: "#FFFFFF",
                                                 cursor: "pointer",
-                                                '&:hover': {
-                                                    color: "#00D9FF",
-                                                },
+                                                // '&:hover': {
+                                                //     color: "#00D9FF",
+                                                // },
                                             }}
                                         >
                                             {item}
