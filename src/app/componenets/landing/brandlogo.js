@@ -45,7 +45,7 @@ const BrandLogo = () => {
                     zIndex: 2,
                 }}
             >
-                {/* <Typography
+                <Typography
                     variant="body2"
                     sx={{
                         color: "rgba(255, 255, 255, 0.2)",
@@ -59,7 +59,7 @@ const BrandLogo = () => {
                     }}
                 >
                     Aquila, Latin for "eagle," is a prominent equatorial constellation representing the bird that carried Zeus's thunderbolts in Greek mythology.
-                </Typography> */}
+                </Typography>
             </Box>
         </StarsBackground>
     );

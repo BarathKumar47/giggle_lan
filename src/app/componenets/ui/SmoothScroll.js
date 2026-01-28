@@ -18,22 +18,29 @@ export default function SmoothScroll({ children }) {
 
         // 2. Initialize Lenis
         const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            duration: 1.5, // Increased for longer, smoother inertia
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // High-inertia exponential easing
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 1,
+            wheelMultiplier: 1.1, // Slightly increased responsiveness
             smoothTouch: false,
-            touchMultiplier: 2,
+            touchMultiplier: 2.5, // Better feel on trackpads/touch
             infinite: false,
+            syncTouch: true, // Sync scroll with touch movement
         });
 
         lenisRef.current = lenis;
 
         // Synchronize AOS with Lenis scroll
+        // Only refresh AOS if the scroll position actually changed enough
+        let lastScrollTime = 0;
         lenis.on('scroll', () => {
-            AOS.refresh();
+            const now = Date.now();
+            if (now - lastScrollTime > 50) { // Throttle AOS refresh to 20fps for performance
+                AOS.refresh();
+                lastScrollTime = now;
+            }
         });
 
         // 3. Use requestAnimationFrame to update Lenis on every frame
