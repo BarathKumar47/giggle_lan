@@ -1,15 +1,22 @@
 "use client";
 
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, IconButton, Drawer } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import GradientBlob from "../ui/GradientBlob";
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 
 export default function Hero() {
     const [showHeader, setShowHeader] = useState(false);
     const [isInHeroSection, setIsInHeroSection] = useState(true);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -54,72 +61,242 @@ export default function Hero() {
                 scale={2.5}
             />
             
-            {/* Logo/Header Container */}
-            <Box
-                component={motion.div}
-                initial={{ width: "192px" }}
-                animate={{ width: showHeader ? "100%" : "192px" }}
-                transition={{ duration: 2, delay: showHeader ? 0 : 2.5, ease: "circOut" }}
-                sx={{
-                    position: "relative",
-                    zIndex: 1,
-                    height: "80px",
-                    overflow: "hidden",
-                    borderRadius: showHeader ? "60px" : "8px",
-                    background: showHeader ? "rgba(255, 255, 255, 0.05)" : "transparent",
-                    backdropFilter: showHeader ? "blur(10px)" : "none",
-                    marginBottom: "100px",
-                    marginTop: "-30px",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: showHeader ? "0 40px" : "0",
-                }}
-            >
-                {/* Logo */}
+            {/* Header Container - Different for Mobile and Desktop */}
+            {!isMobile ? (
+                // Desktop Header
                 <Box
+                    component={motion.div}
+                    initial={{ width: "192px" }}
+                    animate={{ width: showHeader ? "100%" : "192px" }}
+                    transition={{ duration: 2, delay: showHeader ? 0 : 2.5, ease: "circOut" }}
                     sx={{
+                        position: "relative",
+                        zIndex: 1,
+                        height: "80px",
+                        overflow: "hidden",
+                        borderRadius: showHeader ? "60px" : "8px",
+                        background: showHeader ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                        backdropFilter: showHeader ? "blur(10px)" : "none",
+                        marginBottom: "100px",
+                        marginTop: "-30px",
                         display: "flex",
                         alignItems: "center",
-                        position: "absolute",
-                        left: showHeader ? "20px" : "50%",
-                        transform: showHeader ? "none" : "translateX(-50%)",
+                        padding: showHeader ? "0 40px" : "0",
                     }}
                 >
-                    <img
-                        src="/g_logo.svg"
-                        alt="Giggle Logo"
-                        style={{
-                            height: "43px",
-                            width: showHeader ? "126px" : "192px",
+                    {/* Logo */}
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            position: "absolute",
+                            left: showHeader ? "20px" : "50%",
+                            transform: showHeader ? "none" : "translateX(-50%)",
                         }}
-                    />
-                </Box>
+                    >
+                        <img
+                            src="/g_logo.svg"
+                            alt="Giggle Logo"
+                            style={{
+                                height: "43px",
+                                width: showHeader ? "126px" : "192px",
+                            }}
+                        />
+                    </Box>
 
-                {/* Navigation and Buttons - appear when header expands */}
-                <AnimatePresence>
-                    {showHeader && (
-                        <>
-                            {/* Navigation Links - Center */}
+                    {/* Navigation and Buttons - appear when header expands */}
+                    <AnimatePresence>
+                        {showHeader && (
+                            <>
+                                {/* Navigation Links - Center */}
+                                <Box
+                                    component={motion.div}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.3 }}
+                                    sx={{
+                                        position: "absolute",
+                                        left: "50%",
+                                        transform: "translateX(-50%)",
+                                        display: "flex",
+                                        gap: "39px",
+                                    }}
+                                >
+                                    {['Product', 'About', 'Mission', 'Blog'].map((item) => (
+                                        <Typography
+                                            key={item}
+                                            sx={{
+                                                fontFamily: "var(--font-poppins)",
+                                                fontSize: "16px",
+                                                fontWeight: 300,
+                                                color: "#FFFFFF",
+                                                cursor: "pointer",
+                                                '&:hover': {
+                                                    color: "#00D9FF",
+                                                },
+                                            }}
+                                        >
+                                            {item}
+                                        </Typography>
+                                    ))}
+                                </Box>
+
+                                {/* Buttons - Right */}
+                                <Box
+                                    component={motion.div}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.3 }}
+                                    sx={{
+                                        position: "absolute",
+                                        right: "20px",
+                                        display: "flex",
+                                        gap: "16px",
+                                    }}
+                                >
+                                    <Button
+                                        sx={{
+                                            backgroundColor: "#FFFFFF",
+                                            color: "#000000",
+                                            fontFamily: "var(--font-poppins)",
+                                            fontWeight: 400,
+                                            fontSize: "16px",
+                                            textTransform: "none",
+                                            borderRadius: "25px",
+                                            padding: "8px 20px",
+                                            boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
+                                        }}
+                                    >
+                                        Sign in
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        sx={{
+                                            backgroundColor: "#000000",
+                                            color: "#ffffff",
+                                            fontFamily: "var(--font-poppins)",
+                                            boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
+                                            fontWeight: 400,
+                                            fontSize: "14px",
+                                            textTransform: "none",
+                                            borderRadius: "25px",
+                                            padding: "8px 20px",
+                                        }}
+                                    >
+                                        Get Started
+                                    </Button>
+                                </Box>
+                            </>
+                        )}
+                    </AnimatePresence>
+                </Box>
+            ) : (
+                // Mobile Header
+                <Box
+                    sx={{
+                        position: "relative",
+                        zIndex: 1,
+                        height: "60px",
+                        width: "100%",
+                        overflow: "hidden",
+                        borderRadius: "60px",
+                        background: "rgba(255, 255, 255, 0.05)",
+                        backdropFilter: "blur(10px)",
+                        marginBottom: "40px",
+                        marginTop: "-120px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "0 20px",
+                    }}
+                >
+                    {/* Logo - Left side */}
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                        }}
+                    >
+                        <img
+                            src="/g_logo.svg"
+                            alt="Giggle Logo"
+                            style={{
+                                height: "35px",
+                                width: "100px",
+                            }}
+                        />
+                    </Box>
+
+                    {/* Hamburger Menu - Right side */}
+                    <IconButton
+                        onClick={() => setMobileMenuOpen(true)}
+                        sx={{
+                            color: "#FFFFFF",
+                            padding: "8px",
+                        }}
+                    >
+                        <MenuIcon sx={{ fontSize: "28px" }} />
+                    </IconButton>
+
+                    {/* Mobile Navigation Drawer */}
+                    <Drawer
+                        anchor="right"
+                        open={mobileMenuOpen}
+                        onClose={() => setMobileMenuOpen(false)}
+                        sx={{
+                            '& .MuiDrawer-paper': {
+                                width: "280px",
+                                background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)",
+                                backdropFilter: "blur(10px)",
+                                borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
+                            },
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                height: "100%",
+                                padding: "20px",
+                            }}
+                        >
+                            {/* Close Button */}
                             <Box
-                                component={motion.div}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.5, delay: 0.3 }}
-                                sx={{
-                                    position: "absolute",
-                                    left: "50%",
-                                    transform: "translateX(-50%)",
+                                sx={{   
                                     display: "flex",
-                                    gap: "39px",
+                                    justifyContent: "flex-end",
+                                    marginBottom: "40px",
+                                }}
+                            >
+                                <IconButton
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    sx={{
+                                        color: "#FFFFFF",
+                                        padding: "8px",
+                                    }}
+                                >
+                                    <CloseIcon sx={{ fontSize: "28px" }} />
+                                </IconButton>
+                            </Box>
+
+                            {/* Navigation Links */}
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "30px",
+                                    marginBottom: "40px",
                                 }}
                             >
                                 {['Product', 'About', 'Mission', 'Blog'].map((item) => (
                                     <Typography
                                         key={item}
+                                        onClick={() => setMobileMenuOpen(false)}
                                         sx={{
                                             fontFamily: "var(--font-poppins)",
-                                            fontSize: "16px",
+                                            fontSize: "20px",
                                             fontWeight: 300,
                                             color: "#FFFFFF",
                                             cursor: "pointer",
@@ -133,37 +310,26 @@ export default function Hero() {
                                 ))}
                             </Box>
 
-                            {/* Buttons - Right */}
+                            {/* Mobile Buttons */}
                             <Box
-                                component={motion.div}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.5, delay: 0.3 }}
                                 sx={{
-                                    position: "absolute",
-                                    right: "20px",
                                     display: "flex",
+                                    flexDirection: "column",
                                     gap: "16px",
+                                    marginTop: "auto",
                                 }}
                             >
                                 <Button
-                                    // variant="outlined"
                                     sx={{
                                         backgroundColor: "#FFFFFF",
                                         color: "#000000",
-                                        // borderColor: "#ffffff",
                                         fontFamily: "var(--font-poppins)",
                                         fontWeight: 400,
                                         fontSize: "16px",
                                         textTransform: "none",
                                         borderRadius: "25px",
-                                        padding: "8px 20px",
+                                        padding: "12px 20px",
                                         boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
-                                        // '&:hover': {
-                                        //     backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                        //     borderColor: "#ffffff",
-                                        // },
                                     }}
                                 >
                                     Sign in
@@ -179,19 +345,16 @@ export default function Hero() {
                                         fontSize: "14px",
                                         textTransform: "none",
                                         borderRadius: "25px",
-                                        padding: "8px 20px",
-                                        // '&:hover': {
-                                        //     backgroundColor: "#1a1a1a",
-                                        // },
+                                        padding: "12px 20px",
                                     }}
                                 >
                                     Get Started
                                 </Button>
                             </Box>
-                        </>
-                    )}
-                </AnimatePresence>
-            </Box>
+                        </Box>
+                    </Drawer>
+                </Box>
+            )}
 
             {/* Badge with Glassmorphism and Expansion */}
             <Box
@@ -208,6 +371,7 @@ export default function Hero() {
                     background: "rgba(255, 255, 255, 0.05)",
                     backdropFilter: "blur(10px)",
                     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                    marginBottom: "40px",
                 }}
             >
                 {/* Rotating Border with CSS Mask */}
@@ -375,8 +539,8 @@ export default function Hero() {
                 <Box
                     sx={{
                         position: "relative",
-                        width: "388px",
-                        height: "68px",
+                        width: { xs: "120%", sm: "350px", md: "388px" },
+                        height: { xs: "56px", sm: "62px", md: "68px" },
                         overflow: "hidden",
                         borderRadius: "35px",
                     }}
@@ -421,7 +585,7 @@ export default function Hero() {
                     {/* Button content */}
                     <Button
                         variant="contained"
-                        endIcon={<ArrowForwardIcon sx={{ width: "24px", height: "24px" }} />}
+                        endIcon={<ArrowForwardIcon sx={{ width: { xs: "20px", sm: "22px", md: "24px" }, height: { xs: "20px", sm: "22px", md: "24px" } }} />}
                         sx={{
                             position: "relative",
                             zIndex: 3,
@@ -431,7 +595,7 @@ export default function Hero() {
                             height: "100%",
                             fontFamily: "var(--font-inter)",
                             fontWeight: 500,
-                            fontSize: "24px",
+                            fontSize: { xs: "18px", sm: "21px", md: "24px" },
                             borderRadius: "35px",
                             textTransform: "none",
                             border: "none",
@@ -450,8 +614,8 @@ export default function Hero() {
                 <Box
                     sx={{
                         position: "relative",
-                        width: "308px",
-                        height: "56px",
+                        width: { xs: "100%", sm: "280px", md: "308px" },
+                        height: { xs: "48px", sm: "52px", md: "56px" },
                         overflow: "hidden",
                         borderRadius: "35px",
                     }}
@@ -496,7 +660,7 @@ export default function Hero() {
                     {/* Button content */}
                     <Button
                         variant="outlined"
-                        endIcon={<PlayArrowIcon sx={{ width: "32px", height: "32px" }} />}
+                        endIcon={<PlayArrowIcon sx={{ width: { xs: "26px", sm: "29px", md: "32px" }, height: { xs: "26px", sm: "29px", md: "32px" } }} />}
                         sx={{
                             position: "relative",
                             zIndex: 3,
@@ -506,7 +670,7 @@ export default function Hero() {
                             height: "100%",
                             fontFamily: "var(--font-helvetica)",
                             fontWeight: 500,
-                            fontSize: "24px",
+                            fontSize: { xs: "20px", sm: "22px", md: "24px" },
                             borderRadius: "35px",
                             textTransform: "none",
                             border: "none",

@@ -15,7 +15,7 @@ export default function Home() {
       <WorkRules />
       <TheProcess />
       <VisionMission />
-       <Thoughts/>
+      <Thoughts/>
       <ContactSection />
     </>
   );
