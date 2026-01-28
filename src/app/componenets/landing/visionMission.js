@@ -153,24 +153,27 @@ export default function VisionMission() {
                     marginBottom: { xs: "80px", md: "120px" },
                     display: "flex",
                     flexDirection: { xs: "column-reverse", md: "row" },
-                    alignItems: "flex-start",
-                    gap: { xs: "40px", md: "60px" },
-                    padding: { xs: "0px", md: "0px 40px" },
+                    alignItems: { xs: "center", md: "flex-start" },
+                    gap: { xs: "40px", md: "0" },
+                    padding: { xs: "0px 20px", md: "0px 40px" },
                 }}
             >
                 {/* Vision Content - Left Side */}
                 <Box
                     sx={{
                         flex: { xs: "1", md: "1" },
-                        maxWidth: { xs: "100%", md: "none" }
+                        maxWidth: { xs: "100%", md: "none" },
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: { xs: "center", md: "flex-start" }
                     }}
                 >
                     <Box
                         sx={{
-                            display: "inline-block",
+                            display: "block",
                             position: "relative",
                             marginBottom: "50px",
-                            maxWidth: { xs: "fit-content", md: "none" },
+                            maxWidth: "fit-content",
                             margin: { xs: "0 auto 50px auto", md: "0 0 50px 0" }
                         }}
                     >
@@ -245,7 +248,7 @@ export default function VisionMission() {
                                 border: "1px solid #ffffff",
                                 padding: { xs: "5px 12px", md: "5px 30px" },
                                 position: "relative",
-                                display: { xs: "flex", md: "inline-block" },
+                                display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
                                 whiteSpace: "nowrap",
@@ -286,11 +289,12 @@ export default function VisionMission() {
                             fontFamily: "var(--font-inter)",
                             fontSize: { xs: "0.9rem", md: "1.125rem" },
                             fontWeight: 300,
+
                             color: "#E7E7E7",
                             lineHeight: { xs: "1.6", md: "1.8" },
                             letterSpacing: "0.2px",
-                            width: { xs: "100%", md: "650px" },
-                            textAlign: { xs: "left", md: "justify" },
+                            width: { xs: "100%", md: "550px" },
+                            textAlign: { xs: "justify", md: "justify" },
                         }}
                     >
                         <span style={{ fontWeight: 700 }}>Aquila, The Hunter</span>: <span>A constellation formed in the shape of an eagle that represents man's strive for greatness, excellence and prowess.</span><br />
@@ -335,9 +339,9 @@ export default function VisionMission() {
                     width: "100%",
                     display: "flex",
                     flexDirection: { xs: "column", md: "row" },
-                    alignItems: "flex-start",
-                    gap: { xs: "40px", md: "60px" },
-                    padding: { xs: "0px", md: "0px 40px" },
+                    alignItems: { xs: "center", md: "flex-start" },
+                    gap: { xs: "40px", md: "40px" },
+                    padding: { xs: "0px 20px", md: "0px 40px" },
                 }}
             >
                 {/* Target Image - Left Side */}
@@ -381,11 +385,11 @@ export default function VisionMission() {
                 >
                     <Box
                         sx={{
-                            display: "inline-block",
+                            display: "block",
                             position: "relative",
                             marginBottom: { xs: "30px", md: "50px" },
                             transform: { xs: "translateY(-40px)", md: "translateY(-70px)" },
-                            maxWidth: { xs: "fit-content", md: "none" },
+                            maxWidth: "fit-content",
                             margin: { xs: "0 auto 30px auto", md: "0 0 50px 0" }
                         }}
                     >
@@ -460,8 +464,8 @@ export default function VisionMission() {
                                 border: "1px solid #ffffff",
                                 padding: { xs: "5px 12px", md: "5px 30px" },
                                 position: "relative",
-                                display: { xs: "flex", md: "inline-block" },
-                                justifyContent: "end",
+                                display: "flex",
+                                justifyContent: { xs: "center", md: "end" },
                                 alignItems: "center",
                                 whiteSpace: "nowrap",
                                 overflow: "hidden"
@@ -504,8 +508,8 @@ export default function VisionMission() {
                             color: "#E7E7E7",
                             lineHeight: { xs: "1.6", md: "1.8" },
                             letterSpacing: "0.2px",
-                            textAlign: "justify",
-                            width: { xs: "100%", md: "600px" },
+                            textAlign: { xs: "justify", md: "justify" },
+                            width: { xs: "100%", md: "550px" },
                             marginTop: { xs: "-40px", md: "-50px" }
                         }}
                     >

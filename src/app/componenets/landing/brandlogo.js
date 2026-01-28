@@ -11,7 +11,7 @@ const BrandLogo = () => {
         <StarsBackground
             sx={{
                 width: "100%",
-                height: "762px",
+                height: { xs: "500px", md: "762px" },
                 position: "relative",
                 display: "flex",
                 alignItems: "center",
@@ -22,21 +22,17 @@ const BrandLogo = () => {
         >
             {/* Logo */}
             <Box
+                component="img"
+                src="/brand_logo.svg"
+                alt="Giggle Logo"
                 sx={{
+                    height: { xs: "300px", md: "451px" },
+                    width: "auto",
                     marginBottom: "40px",
                     position: "relative",
                     zIndex: 1,
                 }}
-            >
-                <img
-                    src="/brand_logo.svg"
-                    alt="Giggle Logo"
-                    style={{
-                        height: "551px",
-                        width: "451px",
-                    }}
-                />
-            </Box>
+            />
         </StarsBackground>
     );
 };
