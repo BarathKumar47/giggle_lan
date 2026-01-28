@@ -61,17 +61,32 @@ const MotionCrosshair = motion(Crosshair);
 
 export default function VisionMission() {
     return (
-        <Box
-            sx={{
-                width: "100%",
-                background: "#000000",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: { xs: "60px 20px", md: "80px 32px" },
-                position: "relative",
-            }}
-        >
+        <>
+            {/* Black Blend Layer */}
+            <Box
+                sx={{
+                    // position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "150px",
+                    background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                    zIndex: 1,
+                    // mixBlendMode: "screen",
+                    pointerEvents: "none"
+                }}
+            />
+            <Box
+                sx={{
+                    width: "100%",
+                    background: "#000000",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: { xs: "60px 20px", md: "80px 32px" },
+                    position: "relative",
+                }}
+            >
             {/* Core Values Title Section */}
             <motion.div
                 initial={{ opacity: 0, y: -200 }}
@@ -538,6 +553,7 @@ export default function VisionMission() {
                     </Typography>
                 </Box>
             </Box>
-        </Box>
+            </Box>
+        </>
     );
 }
