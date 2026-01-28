@@ -201,7 +201,8 @@ export default function WorkRules() {
                     rowGap: { xs: "8px", md: "12px", lg: "40px" },   // vertical gap
                     columnGap: { xs: "16px", md: "20px", lg: "5px" }, // horizontal gap
 
-                    maxWidth: "1200px",
+                    minWidth:{xs:"100%",md:"1180px"},
+                    maxWidth:{xs:"100%",md:"1000px"},
                     width: "100%",
                 }}
             >

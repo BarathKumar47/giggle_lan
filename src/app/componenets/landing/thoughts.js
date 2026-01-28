@@ -124,7 +124,7 @@ const Thoughts = () => {
                 <Typography
                     sx={{
                         fontFamily: "var(--font-roboto)",
-                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
+                        fontSize: { xs: "2rem", sm: "3rem", md: "3rem" },
                         fontWeight: 500,
                         color: "#ffffff",
                         lineHeight: 1.1,
@@ -139,7 +139,7 @@ const Thoughts = () => {
                     sx={{
 
                         fontFamily: "var(--font-playfair)", fontStyle: 'italic',
-                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3rem" },
+                        fontSize: { xs: "1.8rem", sm: "3rem", md: "3rem" },
                         fontWeight: 400,
                         color: "#ffffff",
                         lineHeight: 1.1,
