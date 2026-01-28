@@ -19,9 +19,16 @@ export default function Hero() {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        // Only apply 3s delay for desktop view
+        if (!isMobile) {
+            const timer = setTimeout(() => {
+                setShowHeader(true);
+            }, 3000);
+            return () => clearTimeout(timer);
+        } else {
+            // For mobile, show header immediately
             setShowHeader(true);
-        }, 3000);
+        }
 
         const handleScroll = () => {
             const heroHeight = 810; // Approximate hero section height
@@ -32,10 +39,12 @@ export default function Hero() {
         window.addEventListener('scroll', handleScroll);
 
         return () => {
-            clearTimeout(timer);
+            if (!isMobile) {
+                clearTimeout(timer);
+            }
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [isMobile]);
 
     return (
         <Box
@@ -60,29 +69,189 @@ export default function Hero() {
                 opacity={0.8}
                 scale={2.5}
             />
-
-            {/* Header Container - Different for Mobile and Desktop */}
-            {!isMobile ? (
-                // Desktop Header
+            
+            {/* Mobile Header - Always rendered, hidden on desktop with CSS */}
+            <Box
+                sx={{
+                    position: "relative",
+                    zIndex: 1,
+                    height: "60px",
+                    width: "100%",
+                    overflow: "hidden",
+                    borderRadius: "60px",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    backdropFilter: "blur(10px)",
+                    marginBottom: "40px",
+                    marginTop: "-120px",
+                    display: { xs: "flex", md: "none" },
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "0 20px",
+                }}
+            >
+                {/* Logo - Left side */}
                 <Box
-                    component={motion.div}
-                    initial={{ width: "192px" }}
-                    animate={{ width: showHeader ? "100%" : "192px" }}
-                    transition={{ duration: 2, delay: showHeader ? 0 : 2.5, ease: "circOut" }}
                     sx={{
-                        position: "relative",
-                        zIndex: 1,
-                        height: "80px",
-                        overflow: "hidden",
-                        borderRadius: showHeader ? "60px" : "8px",
-                        background: showHeader ? "rgba(255, 255, 255, 0.05)" : "transparent",
-                        backdropFilter: showHeader ? "blur(10px)" : "none",
-                        marginBottom: "100px",
-                        marginTop: "-30px",
                         display: "flex",
                         alignItems: "center",
-                        padding: showHeader ? "0 40px" : "0",
                     }}
+                >
+                    <img
+                        src="/g_logo.svg"
+                        alt="Giggle Logo"
+                        style={{
+                            height: "35px",
+                            width: "100px",
+                        }}
+                    />
+                </Box>
+
+                {/* Hamburger Menu - Right side */}
+                <IconButton
+                    onClick={() => setMobileMenuOpen(true)}
+                    sx={{
+                        color: "#FFFFFF",
+                        padding: "8px",
+                    }}
+                >
+                    <MenuIcon sx={{ fontSize: "28px" }} />
+                </IconButton>
+
+                {/* Mobile Navigation Drawer */}
+                <Drawer
+                    anchor="right"
+                    open={mobileMenuOpen}
+                    onClose={() => setMobileMenuOpen(false)}
+                    sx={{
+                        '& .MuiDrawer-paper': {
+                            width: "280px",
+                            background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)",
+                            backdropFilter: "blur(10px)",
+                            borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
+                        },
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "100%",
+                            padding: "20px",
+                        }}
+                    >
+                        {/* Close Button */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                marginBottom: "40px",
+                            }}
+                        >
+                            <IconButton
+                                onClick={() => setMobileMenuOpen(false)}
+                                sx={{
+                                    color: "#FFFFFF",
+                                    padding: "8px",
+                                }}
+                            >
+                                <CloseIcon sx={{ fontSize: "28px" }} />
+                            </IconButton>
+                        </Box>
+
+                        {/* Navigation Links */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "30px",
+                                marginBottom: "40px",
+                            }}
+                        >
+                            {['Product', 'About', 'Mission', 'Blog'].map((item) => (
+                                <Typography
+                                    key={item}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    sx={{
+                                        fontFamily: "var(--font-poppins)",
+                                        fontSize: "20px",
+                                        fontWeight: 300,
+                                        color: "#FFFFFF",
+                                        cursor: "pointer",
+                                        '&:hover': {
+                                            color: "#00D9FF",
+                                        },
+                                    }}
+                                >
+                                    {item}
+                                </Typography>
+                            ))}
+                        </Box>
+
+                        {/* Mobile Buttons */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "16px",
+                                marginTop: "auto",
+                            }}
+                        >
+                            <Button
+                                sx={{
+                                    backgroundColor: "#FFFFFF",
+                                    color: "#000000",
+                                    fontFamily: "var(--font-poppins)",
+                                    fontWeight: 400,
+                                    fontSize: "16px",
+                                    textTransform: "none",
+                                    borderRadius: "25px",
+                                    padding: "12px 20px",
+                                    boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
+                                }}
+                            >
+                                Sign in
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: "#000000",
+                                    color: "#ffffff",
+                                    fontFamily: "var(--font-poppins)",
+                                    boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
+                                    fontWeight: 400,
+                                    fontSize: "14px",
+                                    textTransform: "none",
+                                    borderRadius: "25px",
+                                    padding: "12px 20px",
+                                }}
+                            >
+                                Get Started
+                            </Button>
+                        </Box>
+                    </Box>
+                </Drawer>
+            </Box>
+
+            {/* Desktop Header - Always rendered for desktop, with animation and delay */}
+            <Box
+                component={motion.div}
+                initial={{ width: "192px" }}
+                animate={{ width: showHeader ? "100%" : "192px" }}
+                transition={{ duration: 2, delay: showHeader ? 0 : 2.5, ease: "circOut" }}
+                sx={{
+                    position: "relative",
+                    zIndex: 1,
+                    height: "80px",
+                    overflow: "hidden",
+                    borderRadius: showHeader ? "60px" : "8px",
+                    background: showHeader ? "rgba(255, 255, 255, 0.05)" : "transparent",
+                    backdropFilter: showHeader ? "blur(10px)" : "none",
+                    marginBottom: "100px",
+                    marginTop: "-30px",
+                    display: { xs: "none", md: "flex" },
+                    alignItems: "center",
+                    padding: showHeader ? "0 40px" : "0",
+                }}
                 >
                     {/* Logo */}
                     <Box
@@ -192,289 +361,6 @@ export default function Hero() {
                         )}
                     </AnimatePresence>
                 </Box>
-            ) : (
-                // Mobile Header
-                <Box
-                    sx={{
-                        position: "relative",
-                        zIndex: 1,
-                        height: "60px",
-                        width: "100%",
-                        overflow: "hidden",
-                        borderRadius: "60px",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        backdropFilter: "blur(10px)",
-                        marginBottom: "40px",
-                        marginTop: "-120px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        padding: "0 20px",
-                    }}
-                >
-                    {/* Logo - Left side */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <img
-                            src="/g_logo.svg"
-                            alt="Giggle Logo"
-                            style={{
-                                height: "35px",
-                                width: "100px",
-                            }}
-                        />
-                    </Box>
-
-                    {/* Hamburger Menu - Right side */}
-                    <IconButton
-                        onClick={() => setMobileMenuOpen(true)}
-                        sx={{
-                            color: "#FFFFFF",
-                            padding: "8px",
-                        }}
-                    >
-                        <MenuIcon sx={{ fontSize: "28px" }} />
-                    </IconButton>
-
-                    {/* Mobile Navigation Drawer */}
-                    <Drawer
-                        anchor="right"
-                        open={mobileMenuOpen}
-                        onClose={() => setMobileMenuOpen(false)}
-                        sx={{
-                            '& .MuiDrawer-paper': {
-                                width: "280px",
-                                background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)",
-                                backdropFilter: "blur(10px)",
-                                borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
-                            },
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                height: "100%",
-                                padding: "20px",
-                            }}
-                        >
-                            {/* Close Button */}
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    marginBottom: "40px",
-                                }}
-                            >
-                                <IconButton
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    sx={{
-                                        color: "#FFFFFF",
-                                        padding: "8px",
-                                    }}
-                                >
-                                    <CloseIcon sx={{ fontSize: "28px" }} />
-                                </IconButton>
-                            </Box>
-
-                            {/* Navigation Links */}
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "30px",
-                                    marginBottom: "40px",
-                                }}
-                            >
-                                {['Product', 'About', 'Mission', 'Blog'].map((item) => (
-                                    <Typography
-                                        key={item}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        sx={{
-                                            fontFamily: "var(--font-poppins)",
-                                            fontSize: "20px",
-                                            fontWeight: 300,
-                                            color: "#FFFFFF",
-                                            cursor: "pointer",
-                                            '&:hover': {
-                                                color: "#00D9FF",
-                                            },
-                                        }}
-                                    >
-                                        {item}
-                                    </Typography>
-                                ))}
-                            </Box>
-
-                            {/* Mobile Buttons */}
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "16px",
-                                    marginTop: "auto",
-                                }}
-                            >
-                                <Button
-                                    sx={{
-                                        backgroundColor: "#FFFFFF",
-                                        color: "#000000",
-                                        fontFamily: "var(--font-poppins)",
-                                        fontWeight: 400,
-                                        fontSize: "16px",
-                                        textTransform: "none",
-                                        borderRadius: "25px",
-                                        padding: "12px 20px",
-                                        boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
-                                    }}
-                                >
-                                    Sign in
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    sx={{
-                                        backgroundColor: "#000000",
-                                        color: "#ffffff",
-                                        fontFamily: "var(--font-poppins)",
-                                        boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
-                                        fontWeight: 400,
-                                        fontSize: "14px",
-                                        textTransform: "none",
-                                        borderRadius: "25px",
-                                        padding: "12px 20px",
-                                    }}
-                                >
-                                    Get Started
-                                </Button>
-                            </Box>
-                        </Box>
-                    </Drawer>
-                </Box>
-            )}
-
-            {/* Badge with Glassmorphism and Expansion */}
-            <Box
-                component={motion.div}
-                initial={{ width: "36px" }}
-                animate={{ width: "299px" }}
-                transition={{ duration: 2, delay: 2.5, ease: "circOut" }}
-                sx={{
-                    position: "relative",
-                    zIndex: 1,
-                    height: "38px",
-                    overflow: "hidden",
-                    borderRadius: "25px",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                    marginBottom: "40px",
-                }}
-            >
-                {/* Rotating Border with CSS Mask */}
-                {/* <Box
-                    sx={{
-                        position: "absolute",
-                        inset: 0,
-                        zIndex: 1,
-                        borderRadius: "25px",
-                        padding: "1.5px", // Border width
-                        mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                        maskComposite: "exclude",
-                        WebkitMaskComposite: "xor",
-                        pointerEvents: "none",
-                    }}
-                >
-                    <motion.div
-                        style={{
-                            position: "absolute",
-                            top: "-450%",
-                            left: "-50%",
-                            width: "200%",
-                            height: "1000%",
-                            background: "conic-gradient(transparent 230deg, #ffffff)",
-                            opacity: 0.6,
-                        }}
-                        initial={{ rotate: 0 }}
-                        animate={{ rotate: 360 }}
-                        transition={{
-                            duration: 3,
-                            ease: "linear",
-                            repeat: Infinity,
-                            repeatDelay: 0,
-                        }}
-                    />
-                </Box> */}
-                {/* Content */}
-                <Box
-                    sx={{
-                        position: "relative",
-                        zIndex: 3,
-                        width: "299px",
-                        height: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "16px",
-                        padding: "0 14px",
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            gap: "14px",
-                        }}
-                    >
-                        {["#22c55e", "#ef4444", "#f59e0b"].map((color, i) => (
-                            <Box
-                                key={i}
-                                component={motion.div}
-                                animate={{
-                                    opacity: i === 0
-                                        ? [1, 1, 0, 0] // Green: Show for 75%, hide for 25%
-                                        : i === 1
-                                            ? [0, 0, 1, 1, 0, 0] // Red: Show at 25%, hide at 75%
-                                            : [0, 0, 1, 1, 0, 0] // Yellow: Show at 50%, hide at 75%
-                                }}
-                                transition={{
-                                    duration: 2,
-                                    times: i === 0
-                                        ? [0, 0.75, 0.75, 1]
-                                        : i === 1
-                                            ? [0, 0.25, 0.25, 0.75, 0.75, 1]
-                                            : [0, 0.5, 0.5, 0.75, 0.75, 1],
-                                    repeat: Infinity,
-                                    ease: "linear",
-                                }}
-                                sx={{
-                                    width: "10px",
-                                    height: "10px",
-                                    borderRadius: "50%",
-                                    backgroundColor: color,
-                                }}
-                            />
-                        ))}
-                    </Box>
-                    <Typography
-                        component={motion.p}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 2.6 }}
-                        sx={{
-                            fontSize: "10px",
-                            fontWeight: 400,
-                            fontFamily: "var(--font-inter)",
-                            color: "rgba(255, 255, 255, 0.8)",
-                            textTransform: "uppercase",
-                            whiteSpace: "nowrap",
-                        }}
-                    >
-                        The new standard for freelancers
-                    </Typography>
-                </Box>
-            </Box>
 
             {/* Main Heading */}
             <Typography
@@ -509,8 +395,8 @@ export default function Hero() {
             <Typography
                 sx={{
                     fontFamily: "var(--font-inter)",
-                    fontSize: "24px",
-                    fontWeight: 400,
+                    fontSize: { xs: "18px", sm: "24px" },
+                    fontWeight: 200,
                     color: "#E7E7E7",
                     textAlign: "center",
                     maxWidth: "782px",

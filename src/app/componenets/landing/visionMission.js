@@ -88,7 +88,7 @@ export default function VisionMission() {
                     marginBottom: "80px",
                 }}
             >
-                <Box
+                {/* <Box
                     sx={{
                         display: "flex",
                         justifyContent: "center",
@@ -115,7 +115,7 @@ export default function VisionMission() {
                     >
                         CORE VALUES
                     </Typography>
-                </Box>
+                </Box> */}
 
                 <Typography
                     sx={{
@@ -131,6 +131,13 @@ export default function VisionMission() {
                 </Typography>
 
                 <Typography
+                    component="button"
+                    onClick={() => {
+                        const element = document.getElementById('brandlogo');
+                        if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }}
                     sx={{
                         fontFamily: "var(--font-playfair)",
                         fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
@@ -140,6 +147,18 @@ export default function VisionMission() {
                         lineHeight: 1.1,
                         textAlign: "center",
                         marginBottom: { xs: "2rem", md: "9rem" },
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        padding: 0,
+                        transition: "color 0.3s ease",
+                        "&:hover": {
+                            color: "rgba(255, 255, 255, 0.7)",
+                        },
+                        "&:focus": {
+                            outline: "none",
+                            color: "rgba(255, 255, 255, 0.7)",
+                        },
                     }}
                 >
                     Stars

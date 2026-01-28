@@ -38,7 +38,7 @@ export default function WorkRules() {
                 background: "rgba(255, 255, 255, 0.8)",
                 border: "1px solid rgba(59, 130, 246, 0.3)",
                 borderRadius: { xs: "20px", md: "60px" },
-                boxShadow: "0px 0px 24px 0px rgba(255, 255, 255, 0.4)",
+                boxShadow: "0px 0px 24px 0px rgba(255, 255, 255, 0.0)",
                 iconBackground: "#FFFFFF",
                 iconColor: "#CD04AA",
                 titleColor: "#000000",
@@ -56,7 +56,7 @@ export default function WorkRules() {
                 background: "rgba(255, 255, 255, 0.8)",
                 border: "1px solid rgba(251, 146, 60, 0.3)",
                 borderRadius: { xs: "20px", md: "60px" },
-                boxShadow: "0px 0px 24px 0px rgba(255, 255, 255, 0.4)",
+                boxShadow: "0px 0px 24px 0px rgba(255, 255, 255, 0.0)",
                 iconBackground: "#FFFFFF",
                 iconColor: "#4E9FFF",
                 titleColor: "#000000",
@@ -74,7 +74,7 @@ export default function WorkRules() {
                 background: "rgba(255, 255, 255, 0.8)",
                 border: "1px solid rgba(34, 197, 94, 0.3)",
                 borderRadius: { xs: "20px", md: "60px" },
-                boxShadow: "0px 0px 24px 0px rgba(255, 255, 255, 0.4)",
+                boxShadow: "0px 0px 24px 0px rgba(255, 255, 255, 0.0)",
                 iconBackground: "#FFFFFF",
                 iconColor: "#CD04AA",
                 titleColor: "#000000",
@@ -331,6 +331,7 @@ export default function WorkRules() {
                                         flex: 1,
                                         position: "relative",
                                         zIndex: 2,
+                                        textAlign: "justify",
                                     }}
                                 >
                                     {feature.description}
