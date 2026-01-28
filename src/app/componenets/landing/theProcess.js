@@ -72,7 +72,9 @@ const ProcessCard = ({ number, title, description, color, accentColor, anchor, r
                                 background: "#474747",
                                 borderRadius: "16px",
                                 padding: "24px 28px",
-                                minHeight: { md: "280px" },
+                                minHeight: {
+                                    md: "280px"
+                                },
                                 display: "flex",
                                 flexDirection: "column",
                                 border: "1px solid #A5A5A5",
@@ -110,6 +112,7 @@ const ProcessCard = ({ number, title, description, color, accentColor, anchor, r
                                     color: "#E7E7E7",
                                     opacity: 0.9,
                                     lineHeight: 1.6,
+                                    textAlign:"justify",
                                 }}
                             >
                                 {description}
@@ -117,18 +120,18 @@ const ProcessCard = ({ number, title, description, color, accentColor, anchor, r
                         </Box>
                     </Box>
                 </motion.div>
-            </Box>
-        </Box>
+            </Box >
+        </Box >
     );
 };
 
 export default function TheProcess() {
     const anchors = [
-        { x: 72, y: 15, rotation: -12 },
-        { x: 28, y: 32, rotation: 10 },
-        { x: 68, y: 50, rotation: -15 },
-        { x: 32, y: 68, rotation: 12 },
-        { x: 65, y: 85, rotation: -8 },
+        { x: 72, y: 4, rotation: -12 },
+        { x: 28, y: 24, rotation: 10 },
+        { x: 68, y: 44, rotation: -15 },
+        { x: 32, y: 64, rotation: 12 },
+        { x: 65, y: 84, rotation: -8 },
     ];
 
     const steps = [
@@ -188,7 +191,7 @@ export default function TheProcess() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                padding: { xs: "60px 20px", md: "80px 32px" },
+                padding: { xs: "20px 20px", md: "40px 32px" },
                 position: "relative",
             }}
         >
@@ -198,7 +201,7 @@ export default function TheProcess() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                style={{ textAlign: "center", marginBottom: "80px", zIndex: 10 }}
+                style={{ textAlign: "center", marginBottom: "20px", zIndex: 10 }}
             >
                 <Box
                     sx={{
@@ -259,7 +262,7 @@ export default function TheProcess() {
                     position: "relative",
                     width: "100%",
                     maxWidth: "1400px",
-                    height: { xs: "2200px", md: "2400px", lg: "2800px" },
+                    height: { xs: "2200px", md: "2200px", lg: "2800px" },
                     display: { xs: "none", sm: "block" }, // Hide coordinate system on small mobile, use vertical stack instead
                 }}
             >
@@ -334,6 +337,6 @@ export default function TheProcess() {
                     </Box>
                 ))}
             </Box>
-        </Box>
+        </Box >
     );
 }

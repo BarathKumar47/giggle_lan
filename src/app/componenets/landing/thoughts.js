@@ -52,21 +52,21 @@ const Thoughts = () => {
             Dateandtime: '5 min read | Oct 24, 2023',
             title: "The Future of Remote Collaboration",
             description: "Discover how the changing landscape of digital work is affecting freelancer rates and client expectations globally.",
-            image: "/thoughts-img-1.jpg"
+            image: "/thoughts-img-1.webp"
         },
         {
             tag: 'Team Notes',
             Dateandtime: '5 min read | Oct 24, 2023',
             title: "Trust in the Gig Economy",
             description: "Discover how the changing landscape of digital work is affecting freelancer rates and client expectations globally.",
-            image: "/thoughts-img-2.jpg"
+            image: "/thoughts-img-2.webp"
         },
         {
             tag: 'Design',
             Dateandtime: '5 min read | Oct 24, 2023',
             title: "Designing for Asynchronous Teams",
             description: "Discover how the changing landscape of digital work is affecting freelancer rates and client expectations globally.",
-            image: "/thoughts-img-3.jpg"
+            image: "/thoughts-img-3.webp"
         }
     ];
 
