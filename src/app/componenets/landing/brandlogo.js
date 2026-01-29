@@ -43,9 +43,10 @@ const BrandLogo = () => {
             <Box
                 sx={{
                     position: "absolute",
-                    bottom: "40px",
-                    right: "40px",
-                    textAlign: "right",
+                    bottom: { xs: "20px", md: "40px" },
+                    right: { xs: "20px", md: "40px" },
+                    left: { xs: "20px", md: "auto" },
+                    textAlign: { xs: "center", md: "right" },
                     zIndex: 3,
                 }}
             >
@@ -55,7 +56,8 @@ const BrandLogo = () => {
                         color: "rgba(255, 255, 255, 0.4)",
                         fontSize: { xs: "12px", md: "14px" },
                         maxWidth: "500px",
-                        paddingBottom: "40px",
+                        margin: { xs: "0 auto", md: "0" },
+                        paddingBottom: { xs: "25px", md: "40px" },
                         fontWeight: 300,
                         transition: "color 0.3s ease",
                         "&:hover": {
