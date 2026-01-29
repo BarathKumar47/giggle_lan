@@ -414,7 +414,7 @@ export default function VisionMission() {
                         maxWidth: { xs: "100%", md: "597px" },
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: { xs: "center", md: "flex-end" },
+                        alignItems: { xs: "center", md: "flex-start" },
                     }}
                 >
                     <Box
@@ -422,7 +422,7 @@ export default function VisionMission() {
                             display: "block",
                             position: "relative",
                             marginBottom: { xs: "30px", md: "50px" },
-                            transform: { xs: "translateY(-40px)", md: "translateY(-70px)" },
+                            transform: { xs: "translateY(-40px)", md: "translateY(50px)" },
                             maxWidth: "fit-content",
                             margin: { xs: "0 auto 30px auto", md: "0 0 50px 0" }
                         }}
@@ -544,7 +544,7 @@ export default function VisionMission() {
                             letterSpacing: "0.2px",
                             textAlign: { xs: "justify", md: "justify" },
                             width: { xs: "100%", md: "600px" },
-                            marginTop: { xs: "-40px", md: "-50px" }
+                            marginTop: { xs: "-40px", md: "40px" }
                         }}
                     >
                         Our mission is <span style={{ fontWeight: 700 }}>to build a task-first gig marketplace</span> that replaces tiresome hiring, long interviews, and sudden layoffs with something smarter: <span style={{ fontWeight: 700 }}>real work, real outcomes, and real accountability.</span><br />

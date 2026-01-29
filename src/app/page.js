@@ -5,6 +5,7 @@ import ContactSection from "./componenets/landing/contactSection";
 import BrandLogo from "./componenets/landing/brandlogo";
 import Thoughts from "./componenets/landing/thoughts";
 import TheProcess from "./componenets/landing/theProcess";
+import FoundersNote from "./componenets/landing/foundersNote";
 
 
 import { Box } from "@mui/material";
@@ -37,6 +38,7 @@ export default function Home() {
         <WorkRules />
         <TheProcess />
         <VisionMission />
+        <FoundersNote />
         <Thoughts />
         <ContactSection />
       </Box>
