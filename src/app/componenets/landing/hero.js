@@ -61,15 +61,7 @@ export default function Hero() {
                 overflow: "hidden",
             }}
         >
-            <GradientBlob
-                // colors={["#00D9FF", "#7B2FFF", "#FF2E97", "#00FFA3", "#FFD600"]}
-                blobCount={10}
-                animationSpeed={1}
-                blur={40}
-                opacity={0.8}
-                scale={2.5}
-            />
-            
+
             {/* Mobile Header - Always rendered, hidden on desktop with CSS */}
             <Box
                 sx={{
@@ -252,115 +244,115 @@ export default function Hero() {
                     alignItems: "center",
                     padding: showHeader ? "0 40px" : "0",
                 }}
+            >
+                {/* Logo */}
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        position: "absolute",
+                        left: showHeader ? "20px" : "50%",
+                        transform: showHeader ? "none" : "translateX(-50%)",
+                    }}
                 >
-                    {/* Logo */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            position: "absolute",
-                            left: showHeader ? "20px" : "50%",
-                            transform: showHeader ? "none" : "translateX(-50%)",
+                    <img
+                        src="/g_logo.svg"
+                        alt="Giggle Logo"
+                        style={{
+                            height: "43px",
+                            width: showHeader ? "126px" : "192px",
                         }}
-                    >
-                        <img
-                            src="/g_logo.svg"
-                            alt="Giggle Logo"
-                            style={{
-                                height: "43px",
-                                width: showHeader ? "126px" : "192px",
-                            }}
-                        />
-                    </Box>
-
-                    {/* Navigation and Buttons - appear when header expands */}
-                    <AnimatePresence>
-                        {showHeader && (
-                            <>
-                                {/* Navigation Links - Center */}
-                                <Box
-                                    component={motion.div}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.3 }}
-                                    sx={{
-                                        position: "absolute",
-                                        left: "50%",
-                                        transform: "translateX(-50%)",
-                                        display: "flex",
-                                        gap: "39px",
-                                    }}
-                                >
-                                    {['Product', 'About', 'Mission', 'Blog'].map((item) => (
-                                        <Typography
-                                            key={item}
-                                            sx={{
-                                                fontFamily: "var(--font-poppins)",
-                                                fontSize: "16px",
-                                                fontWeight: 300,
-                                                color: "#FFFFFF",
-                                                cursor: "pointer",
-                                                // '&:hover': {
-                                                //     color: "#00D9FF",
-                                                // },
-                                            }}
-                                        >
-                                            {item}
-                                        </Typography>
-                                    ))}
-                                </Box>
-
-                                {/* Buttons - Right */}
-                                <Box
-                                    component={motion.div}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.3 }}
-                                    sx={{
-                                        position: "absolute",
-                                        right: "20px",
-                                        display: "flex",
-                                        gap: "16px",
-                                    }}
-                                >
-                                    <Button
-                                        sx={{
-                                            backgroundColor: "#FFFFFF",
-                                            color: "#000000",
-                                            fontFamily: "var(--font-poppins)",
-                                            fontWeight: 400,
-                                            fontSize: "16px",
-                                            textTransform: "none",
-                                            borderRadius: "25px",
-                                            padding: "8px 20px",
-                                            boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
-                                        }}
-                                    >
-                                        Sign in
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        sx={{
-                                            backgroundColor: "#000000",
-                                            color: "#ffffff",
-                                            fontFamily: "var(--font-poppins)",
-                                            boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
-                                            fontWeight: 400,
-                                            fontSize: "14px",
-                                            textTransform: "none",
-                                            borderRadius: "25px",
-                                            padding: "8px 20px",
-                                        }}
-                                    >
-                                        Get Started
-                                    </Button>
-                                </Box>
-                            </>
-                        )}
-                    </AnimatePresence>
+                    />
                 </Box>
+
+                {/* Navigation and Buttons - appear when header expands */}
+                <AnimatePresence>
+                    {showHeader && (
+                        <>
+                            {/* Navigation Links - Center */}
+                            <Box
+                                component={motion.div}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                                sx={{
+                                    position: "absolute",
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                    display: "flex",
+                                    gap: "39px",
+                                }}
+                            >
+                                {['Product', 'About', 'Mission', 'Blog'].map((item) => (
+                                    <Typography
+                                        key={item}
+                                        sx={{
+                                            fontFamily: "var(--font-poppins)",
+                                            fontSize: "16px",
+                                            fontWeight: 300,
+                                            color: "#FFFFFF",
+                                            cursor: "pointer",
+                                            '&:hover': {
+                                                color: "#00D9FF",
+                                            },
+                                        }}
+                                    >
+                                        {item}
+                                    </Typography>
+                                ))}
+                            </Box>
+
+                            {/* Buttons - Right */}
+                            <Box
+                                component={motion.div}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                                sx={{
+                                    position: "absolute",
+                                    right: "20px",
+                                    display: "flex",
+                                    gap: "16px",
+                                }}
+                            >
+                                <Button
+                                    sx={{
+                                        backgroundColor: "#FFFFFF",
+                                        color: "#000000",
+                                        fontFamily: "var(--font-poppins)",
+                                        fontWeight: 400,
+                                        fontSize: "16px",
+                                        textTransform: "none",
+                                        borderRadius: "25px",
+                                        padding: "8px 20px",
+                                        boxShadow: "inset 0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
+                                    }}
+                                >
+                                    Sign in
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: "#000000",
+                                        color: "#ffffff",
+                                        fontFamily: "var(--font-poppins)",
+                                        boxShadow: "inset 0px 0px 4px 0px #E7E7E7",
+                                        fontWeight: 400,
+                                        fontSize: "14px",
+                                        textTransform: "none",
+                                        borderRadius: "25px",
+                                        padding: "8px 20px",
+                                    }}
+                                >
+                                    Get Started
+                                </Button>
+                            </Box>
+                        </>
+                    )}
+                </AnimatePresence>
+            </Box>
 
             {/* Main Heading */}
             <Typography

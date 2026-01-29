@@ -107,7 +107,7 @@ export function StarsBackground({
                 width: "100%",
                 height: "100%",
                 overflow: "hidden",
-                background: "radial-gradient(ellipse_at_bottom, #262626 0%, #000 100%)",
+                background: "transparent",
                 ...sx
             }}
             {...props}
