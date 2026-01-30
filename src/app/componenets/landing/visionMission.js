@@ -77,6 +77,7 @@ export default function VisionMission() {
                 }}
             />
             <Box
+                id="vision-mission"
                 sx={{
                     width: "100%",
                     background: "#000000",
@@ -414,7 +415,7 @@ export default function VisionMission() {
                         maxWidth: { xs: "100%", md: "597px" },
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: { xs: "center", md: "flex-start" },
+                        alignItems: { xs: "center", md: "flex-end" },
                     }}
                 >
                     <Box

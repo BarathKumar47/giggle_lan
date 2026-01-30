@@ -3,15 +3,29 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import GradientBlob from "../ui/GradientBlob";
 
 const FoundersNote = () => {
     return (
+        <>  
+        <Box sx={{
+              top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100px",
+                    background: "linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))",
+                    zIndex: 1,
+                    // mixBlendMode: "screen",
+                    pointerEvents: "none"
+        }}>
+
+        </Box>
         <Box
             id="founders-note"
             sx={{
                 width: "100%",
                 minHeight: { xs: "600px", md: "700px" },
-                background: "#000000",
+                background: "transparent",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -20,6 +34,22 @@ const FoundersNote = () => {
                 overflow: "hidden",
             }}
         >
+            {/* Gradient Blob Background */}
+            {/* <GradientBlob /> */}
+            
+            {/* Black overlay for better text readability */}
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    // background: "rgba(0, 0, 0, 0.7)",
+                    pointerEvents: "none",
+                    zIndex: 0,
+                }}
+            />
             <Box
                 sx={{
                     maxWidth: "800px",
@@ -163,6 +193,19 @@ const FoundersNote = () => {
                 }}
             />
         </Box>
+        <Box sx={{
+              top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100px",
+                    background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                    zIndex: 1,
+                    // mixBlendMode: "screen",
+                    pointerEvents: "none"
+        }}>
+
+        </Box>
+        </>
     );
 };
 

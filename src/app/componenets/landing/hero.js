@@ -18,6 +18,27 @@ export default function Hero() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+    const handleNavigation = (item) => {
+        let elementId;
+        if (item === 'Mission') {
+            elementId = 'vision-mission';
+        } else if (item === 'Blog') {
+            elementId = 'thoughts';
+        } else {
+            return; // Handle other menu items if needed
+        }
+
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Close mobile menu if open
+        if (mobileMenuOpen) {
+            setMobileMenuOpen(false);
+        }
+    };
+
     useEffect(() => {
         // Only apply 3s delay for desktop view
         if (!isMobile) {
@@ -162,7 +183,7 @@ export default function Hero() {
                             {['Product', 'About', 'Mission', 'Blog'].map((item) => (
                                 <Typography
                                     key={item}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={() => handleNavigation(item)}
                                     sx={{
                                         fontFamily: "var(--font-poppins)",
                                         fontSize: "20px",
@@ -287,6 +308,7 @@ export default function Hero() {
                                 {['Product', 'About', 'Mission', 'Blog'].map((item) => (
                                     <Typography
                                         key={item}
+                                        onClick={() => handleNavigation(item)}
                                         sx={{
                                             fontFamily: "var(--font-poppins)",
                                             fontSize: "16px",

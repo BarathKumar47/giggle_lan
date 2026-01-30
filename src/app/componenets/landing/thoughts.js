@@ -72,6 +72,7 @@ const Thoughts = () => {
 
     return (
         <Box
+            id="thoughts"
             sx={{
                 width: "100%",
                 background: "black",
