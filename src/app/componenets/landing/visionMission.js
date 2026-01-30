@@ -289,7 +289,7 @@ export default function VisionMission() {
                                 whiteSpace: "nowrap",
                                 overflow: "hidden"
                             }}>
-                                <Typography
+                                {/* <Typography
                                     component="span"
                                     sx={{
                                         fontFamily: "var(--font-playfair)",
@@ -301,7 +301,7 @@ export default function VisionMission() {
                                     }}
                                 >
                                     Our
-                                </Typography>
+                                </Typography> */}
                                 <Typography
                                     component="span"
                                     sx={{
@@ -309,7 +309,7 @@ export default function VisionMission() {
                                         fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
                                         fontWeight: 500,
                                         color: "#ffffff",
-                                        marginLeft: { xs: "15px", md: "30px" },
+                                        marginLeft: { xs: "15px", md: "0px" },
                                         textShadow: "0px 0px 20px rgba(255, 255, 255, 0.3)",
                                     }}
                                 >
@@ -341,11 +341,6 @@ export default function VisionMission() {
 
                 {/* Lightbulb Image - Right Side */}
                 <Box
-                    component={motion.div}
-                    initial={{ opacity: 0, x: 100, rotate: 15 }}
-                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                    transition={{ duration: 1 }}
-                    viewport={{ once: true }}
                     sx={{
                         flex: { xs: "1", md: "1" },
                         textAlign: { xs: "center", md: "right" },
@@ -381,11 +376,6 @@ export default function VisionMission() {
             >
                 {/* Target Image - Left Side */}
                 <Box
-                    component={motion.div}
-                    initial={{ opacity: 0, x: -100, rotate: -15 }}
-                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    viewport={{ once: true }}
                     sx={{
                         flex: { xs: "1", md: "1" },
                         textAlign: { xs: "center", md: "left" },
@@ -505,7 +495,7 @@ export default function VisionMission() {
                                 whiteSpace: "nowrap",
                                 overflow: "hidden"
                             }}>
-                                <Typography
+                                {/* <Typography
                                     component="span"
                                     sx={{
                                         fontFamily: "var(--font-playfair)",
@@ -517,7 +507,7 @@ export default function VisionMission() {
                                     }}
                                 >
                                     Our
-                                </Typography>
+                                </Typography> */}
                                 <Typography
                                     component="span"
                                     sx={{
@@ -525,7 +515,7 @@ export default function VisionMission() {
                                         fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
                                         fontWeight: 500,
                                         color: "#ffffff",
-                                        marginLeft: { xs: "15px", md: "30px" },
+                                        marginLeft: { xs: "15px", md: "0px" },
                                         textShadow: "0px 0px 20px rgba(255, 255, 255, 0.3)",
                                     }}
                                 >

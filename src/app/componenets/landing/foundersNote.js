@@ -12,7 +12,7 @@ const FoundersNote = () => {
               top: 0,
                     left: 0,
                     width: "100%",
-                    height: "100px",
+                    height: "150px",
                     background: "linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))",
                     zIndex: 1,
                     // mixBlendMode: "screen",
@@ -128,7 +128,7 @@ const FoundersNote = () => {
                                 fontStyle: "italic",
                             }}
                         >
-                            Note
+                            note
                         </Box>
                     </Typography>
                 </motion.div>
@@ -197,7 +197,7 @@ const FoundersNote = () => {
               top: 0,
                     left: 0,
                     width: "100%",
-                    height: "100px",
+                    height: "150px",
                     background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
                     zIndex: 1,
                     // mixBlendMode: "screen",

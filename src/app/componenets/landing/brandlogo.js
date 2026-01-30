@@ -8,6 +8,15 @@ import { StarsBackground } from "../ui/stars";
 
 const BrandLogo = () => {
     return (
+        <>
+        <Box
+        sx={{
+            width:"100%",
+            height:"150px",
+            background: "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+           
+        }}>
+        </Box>
         <StarsBackground
             id="brandlogo"
             sx={{
@@ -20,9 +29,9 @@ const BrandLogo = () => {
                 overflow: "hidden",
                 background: "#000000",
                 // Refined mask with rgba for better browser compatibility and smoother alpha transitions
-                maskImage: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100px, rgba(0,0,0,1) calc(100% - 100px), rgba(0,0,0,0) 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100px, rgba(0,0,0,1) calc(100% - 100px), rgba(0,0,0,0) 100%)",
-                marginBottom: "-1px", // Ensure perfect overlap to hide sub-pixel lines
+                // maskImage: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100px, rgba(0,0,0,1) calc(100% - 100px), rgba(0,0,0,0) 100%)",
+                // WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100px, rgba(0,0,0,1) calc(100% - 100px), rgba(0,0,0,0) 100%)",
+                // marginBottom: "-1px", // Ensure perfect overlap to hide sub-pixel lines
             }}
         >
             {/* Logo */}
@@ -43,8 +52,8 @@ const BrandLogo = () => {
             <Box
                 sx={{
                     position: "absolute",
-                    bottom: { xs: "20px", md: "40px" },
-                    right: { xs: "20px", md: "40px" },
+                    bottom: { xs: "20px", md: "60px" },
+                    right: { xs: "20px", md: "10px" },
                     left: { xs: "20px", md: "auto" },
                     textAlign: { xs: "center", md: "right" },
                     zIndex: 3,
@@ -55,10 +64,12 @@ const BrandLogo = () => {
                     sx={{
                         color: "rgba(255, 255, 255, 0.4)",
                         fontSize: { xs: "12px", md: "14px" },
-                        maxWidth: "500px",
+                        maxWidth: "460px",
                         margin: { xs: "0 auto", md: "0" },
-                        paddingBottom: { xs: "25px", md: "40px" },
+                        paddingBottom: { xs: "25px", md: "140px" },
+                        // WebkitLineClamp: 2,
                         fontWeight: 300,
+                        textAlign: "justify",
                         transition: "color 0.3s ease",
                         "&:hover": {
                             color: "rgba(255, 255, 255, 0.8)",
@@ -69,6 +80,15 @@ const BrandLogo = () => {
                 </Typography>
             </Box>
         </StarsBackground>
+        <Box
+        sx={{
+            width:"100%",
+            height:"150px",
+            background: "linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))",
+           
+        }}>
+        </Box>
+    </>
     );
 };
 

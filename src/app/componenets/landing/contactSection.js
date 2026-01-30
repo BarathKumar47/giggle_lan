@@ -1,14 +1,39 @@
 "use client";
 
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Typography, TextField, Button, IconButton } from "@mui/material";
 import { motion } from "framer-motion";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/FacebookRounded";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { useState, useEffect } from "react";
 
 export default function ContactSection() {
+    const [showUpArrow, setShowUpArrow] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const heroSection = document.getElementById('hero');
+            if (heroSection) {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const scrollPosition = window.scrollY;
+                
+                // Show up arrow when scrolled past hero section
+                setShowUpArrow(scrollPosition > heroBottom + 100);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Check initial position
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <Box
+            id="contact"
             sx={{
                 width: "100%",
                 minHeight: "100vh",
@@ -19,6 +44,41 @@ export default function ContactSection() {
                 position: "relative",
             }}
         >
+            {/* Up Arrow Button */}
+            {showUpArrow && (
+                <IconButton
+                    onClick={() => {
+                        const heroSection = document.getElementById('hero');
+                        if (heroSection) {
+                            heroSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }}
+                    sx={{
+                        position: "fixed",
+                        bottom: "30px",
+                        right: "30px",
+                        width: "50px",
+                        height: "50px",
+                        background: "rgba(255, 255, 255, 0.1)",
+                        backdropFilter: "blur(10px)",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                        borderRadius: "50%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        transition: "all 0.3s ease",
+                        zIndex: 1000,
+                        "&:hover": {
+                            background: "rgba(255, 255, 255, 0.2)",
+                            transform: "translateY(-3px)",
+                            boxShadow: "0 8px 25px rgba(255, 255, 255, 0.1)",
+                        },
+                    }}
+                >
+                    <KeyboardArrowUpIcon sx={{ color: "#ffffff", fontSize: "28px" }} />
+                </IconButton>
+            )}
             {/* Main Content */}
             <Box
                 sx={{
@@ -42,7 +102,7 @@ export default function ContactSection() {
                     style={{
                         flex: 1,
                         textAlign: { xs: "center", lg: "left" },
-                        marginTop: '-7rem'
+                        marginTop: '-2rem'
                     }}
                 >
                     <Typography
@@ -55,19 +115,19 @@ export default function ContactSection() {
                             fontFamily: "var(--font-helvetica)",
                         }}
                     >
-                        Let's build<br />something <Box component="span" sx={{ fontFamily: "var(--font-playfair)", fontStyle: 'italic' }}>great.</Box>
+                        Let's build<br />something<br /><Box component="span" sx={{ fontFamily: "var(--font-playfair)", fontStyle: 'italic' }}>great.</Box>
                     </Typography>
                     <Typography
                         variant="body1"
                         sx={{
-                            fontSize: { xs: "1rem", md: "1rem" },
+                            fontSize: { xs: "1rem", md: "14px" },
                             color: "#999999",
                             fontWeight: 300,
                             marginBottom: "40px",
                             lineHeight: '100%',
                             letterSpacing: '0%',
                             fontFamily: "var(--font-inter)",
-                            maxWidth: { xs: "100%", lg: "500px" },
+                            maxWidth: { xs: "100%", lg: "400px" },
                         }}
                     >
                         Have a project in mind? We'd love to hear about it.
@@ -84,6 +144,7 @@ export default function ContactSection() {
                     >
                         <Button
                             variant="contained"
+                            onClick={() => window.open('https://giggle-web-28t2.vercel.app/signup', '_blank')}
                             sx={{
                                 background: "#FFFFFF",
                                 color: "#000000",
@@ -103,7 +164,7 @@ export default function ContactSection() {
                         >
                             Get Started Now
                         </Button>
-                        <Button
+                        {/* <Button
                             variant="outlined"
                             sx={{
                                 borderColor: "#7F7F7F",
@@ -122,7 +183,7 @@ export default function ContactSection() {
                             }}
                         >
                             Contact Sales
-                        </Button>
+                        </Button> */}
                     </Box>
                 </motion.div>
 

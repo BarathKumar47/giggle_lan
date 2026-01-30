@@ -86,6 +86,7 @@ export default function WorkRules() {
 
     return (
         <Box
+            id="work-rules"
             sx={{
                 width: "100%",
                 background: "transparent",

@@ -20,10 +20,14 @@ export default function Hero() {
 
     const handleNavigation = (item) => {
         let elementId;
-        if (item === 'Mission') {
+        if (item === 'Product') {
+            elementId = 'work-rules';
+        } else if (item === 'Mission') {
             elementId = 'vision-mission';
         } else if (item === 'Blog') {
             elementId = 'thoughts';
+        } else if (item === 'Who are we') {
+            elementId = 'founders-note';
         } else {
             return; // Handle other menu items if needed
         }
@@ -69,6 +73,7 @@ export default function Hero() {
 
     return (
         <Box
+            id="hero"
             sx={{
                 width: "100%",
                 minHeight: "810px",
@@ -180,7 +185,7 @@ export default function Hero() {
                                 marginBottom: "40px",
                             }}
                         >
-                            {['Product', 'About', 'Mission', 'Blog'].map((item) => (
+                            {['Product', 'Who are we', 'Mission', 'Blog'].map((item) => (
                                 <Typography
                                     key={item}
                                     onClick={() => handleNavigation(item)}
@@ -210,6 +215,7 @@ export default function Hero() {
                             }}
                         >
                             <Button
+                                onClick={() => window.open('https://giggle-web-28t2.vercel.app/login', '_blank')}
                                 sx={{
                                     backgroundColor: "#FFFFFF",
                                     color: "#000000",
@@ -225,6 +231,16 @@ export default function Hero() {
                                 Sign in
                             </Button>
                             <Button
+                                onClick={() => {
+                                    const element = document.getElementById('contact');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                    // Close mobile menu if open
+                                    if (mobileMenuOpen) {
+                                        setMobileMenuOpen(false);
+                                    }
+                                }}
                                 variant="contained"
                                 sx={{
                                     backgroundColor: "#000000",
@@ -238,7 +254,7 @@ export default function Hero() {
                                     padding: "12px 20px",
                                 }}
                             >
-                                Get Started
+                                Know More
                             </Button>
                         </Box>
                     </Box>
@@ -305,7 +321,7 @@ export default function Hero() {
                                     gap: "39px",
                                 }}
                             >
-                                {['Product', 'About', 'Mission', 'Blog'].map((item) => (
+                                {['Product', 'Who are we', 'Mission', 'Blog'].map((item) => (
                                     <Typography
                                         key={item}
                                         onClick={() => handleNavigation(item)}
@@ -340,6 +356,7 @@ export default function Hero() {
                                 }}
                             >
                                 <Button
+                                    onClick={() => window.open('https://giggle-web-28t2.vercel.app/login', '_blank')}
                                     sx={{
                                         backgroundColor: "#FFFFFF",
                                         color: "#000000",
@@ -355,6 +372,12 @@ export default function Hero() {
                                     Sign in
                                 </Button>
                                 <Button
+                                    onClick={() => {
+                                        const element = document.getElementById('contact');
+                                        if (element) {
+                                            element.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    }}
                                     variant="contained"
                                     sx={{
                                         backgroundColor: "#000000",
@@ -368,7 +391,7 @@ export default function Hero() {
                                         padding: "8px 20px",
                                     }}
                                 >
-                                    Get Started
+                                    Know More
                                 </Button>
                             </Box>
                         </>
@@ -484,6 +507,7 @@ export default function Hero() {
 
                     {/* Button content */}
                     <Button
+                        onClick={() => window.open('https://giggle-web-28t2.vercel.app/signup', '_blank')}
                         variant="contained"
                         endIcon={<ArrowForwardIcon sx={{ width: { xs: "20px", sm: "22px", md: "24px" }, height: { xs: "20px", sm: "22px", md: "24px" } }} />}
                         sx={{
@@ -544,7 +568,7 @@ export default function Hero() {
                     /> */}
 
                     {/* Inner overlay */}
-                    <Box
+                    {/* <Box
                         sx={{
                             position: "absolute",
                             top: "2px",
@@ -555,10 +579,10 @@ export default function Hero() {
                             borderRadius: "33px",
                             zIndex: 2,
                         }}
-                    />
+                    /> */}
 
                     {/* Button content */}
-                    <Button
+                    {/* <Button
                         variant="outlined"
                         endIcon={<PlayArrowIcon sx={{ width: { xs: "26px", sm: "29px", md: "32px" }, height: { xs: "26px", sm: "29px", md: "32px" } }} />}
                         sx={{
@@ -581,7 +605,7 @@ export default function Hero() {
                         }}
                     >
                         Watch showreels
-                    </Button>
+                    </Button> */}
                 </Box>
             </Box>
         </Box>
