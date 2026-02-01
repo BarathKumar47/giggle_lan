@@ -35,9 +35,19 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+export const metadata = {
+  title: 'Giggle',
+  description: '',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.svg" sizes="any" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${playfair.variable} ${roboto.variable} ${poppins.variable}`}
       >
