@@ -507,7 +507,7 @@ export default function Hero() {
 
                     {/* Button content */}
                     <Button
-                        onClick={() => window.open('https://giggle-web-28t2.vercel.app/signup', '_blank')}
+                        onClick={() => window.open('https://forms.gle/y3tqmt7KdHWJQzV3A', '_blank')}
                         variant="contained"
                         endIcon={<ArrowForwardIcon sx={{ width: { xs: "20px", sm: "22px", md: "24px" }, height: { xs: "20px", sm: "22px", md: "24px" } }} />}
                         sx={{
