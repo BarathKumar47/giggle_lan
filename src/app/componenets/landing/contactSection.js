@@ -17,7 +17,7 @@ export default function ContactSection() {
             if (heroSection) {
                 const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
                 const scrollPosition = window.scrollY;
-                
+
                 // Show up arrow when scrolled past hero section
                 setShowUpArrow(scrollPosition > heroBottom + 100);
             }
@@ -335,7 +335,7 @@ export default function ContactSection() {
                                 rows={4}
                                 style={{
                                     width: "100%",
-                                    // padding: "16.5px 14px",
+                                    padding: "16.5px 14px",
                                     height: "80px",
                                     borderRadius: "8px",
                                     border: "1px solid rgba(255, 255, 255, 0.1)",

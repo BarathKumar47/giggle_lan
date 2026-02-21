@@ -231,16 +231,7 @@ export default function Hero() {
                                 Sign in
                             </Button>
                             <Button
-                                onClick={() => {
-                                    const element = document.getElementById('contact');
-                                    if (element) {
-                                        element.scrollIntoView({ behavior: 'smooth' });
-                                    }
-                                    // Close mobile menu if open
-                                    if (mobileMenuOpen) {
-                                        setMobileMenuOpen(false);
-                                    }
-                                }}
+                                onClick={() => window.open('https://forms.gle/y3tqmt7KdHWJQzV3A', '_blank')}
                                 variant="contained"
                                 sx={{
                                     backgroundColor: "#000000",
@@ -254,7 +245,7 @@ export default function Hero() {
                                     padding: "12px 20px",
                                 }}
                             >
-                                Know More
+                                Join now
                             </Button>
                         </Box>
                     </Box>
@@ -372,12 +363,7 @@ export default function Hero() {
                                     Sign in
                                 </Button>
                                 <Button
-                                    onClick={() => {
-                                        const element = document.getElementById('contact');
-                                        if (element) {
-                                            element.scrollIntoView({ behavior: 'smooth' });
-                                        }
-                                    }}
+                                    onClick={() => window.open('https://forms.gle/y3tqmt7KdHWJQzV3A', '_blank')}
                                     variant="contained"
                                     sx={{
                                         backgroundColor: "#000000",
@@ -391,7 +377,7 @@ export default function Hero() {
                                         padding: "8px 20px",
                                     }}
                                 >
-                                    Know More
+                                    Join now
                                 </Button>
                             </Box>
                         </>
@@ -507,7 +493,7 @@ export default function Hero() {
 
                     {/* Button content */}
                     <Button
-                        onClick={() => window.open('https://forms.gle/y3tqmt7KdHWJQzV3A', '_blank')}
+                        onClick={() => window.open('https://giggle-web-28t2.vercel.app/signup', '_blank')}
                         variant="contained"
                         endIcon={<ArrowForwardIcon sx={{ width: { xs: "20px", sm: "22px", md: "24px" }, height: { xs: "20px", sm: "22px", md: "24px" } }} />}
                         sx={{
@@ -530,7 +516,7 @@ export default function Hero() {
                             },
                         }}
                     >
-                        Start Collaborating
+                        Start Hiring
                     </Button>
                 </Box>
 

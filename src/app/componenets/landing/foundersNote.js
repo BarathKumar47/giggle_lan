@@ -168,7 +168,7 @@ const FoundersNote = () => {
                             <Typography
                                 sx={{
                                     fontFamily: "var(--font-playfair)",
-                                    fontStyle: "italic",
+                                    // fontStyle: "italic",
                                     fontSize: "32px",
                                     fontWeight: 400,
                                     color: "#ffffff",
